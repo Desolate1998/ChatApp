@@ -1,0 +1,16 @@
+[data-theme="dark"]{
+    --Body:#23272C;
+    --FontColor:rgb(238, 238, 238);
+    --CardBackground:#2F333B;
+    --Shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    --SecondaryFontColor:rgb(42, 202, 154);
+}
+
+[data-theme="light"]{
+    --Body:#F3F5F7;
+    --fontColor:#23272C ;
+    --CardBackground:#ffff;
+    --Shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    --SecondaryFontColor:rgb(226, 48, 122);
+}
+

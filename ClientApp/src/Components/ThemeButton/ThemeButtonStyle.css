@@ -1,0 +1,70 @@
+#wraper {
+    width: 500px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 4px 1px 0px #1972c5;
+    margin: 0px auto;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+    background-color: dodgerblue;
+}
+.menu-setting{
+    max-width: 50px;
+
+}
+#text {
+    align-self: center;
+    display: flex;
+    font-size: 1.5em;
+    flex-flow: column nowrap;
+    color: white;
+}
+#text span:first-child {
+    letter-spacing: 2px;
+    border-bottom: 2px solid #ffec50;
+    padding-bottom: 4px;
+    font-size: 1.5em;
+}
+#container {
+    width: 150px;
+}
+
+/*************** SVG styles **************/
+
+#sun {
+    fill: #ffec50;
+    transition: fill 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.sunRays {
+    fill: #fff284;
+}
+#starGroup {
+    fill: #ffec50;
+}
+#star1 {
+    opacity: 0;
+}
+#star2 {
+    opacity: 0;
+}
+#star3 {
+    opacity: 0;
+}
+@media (max-width: 499px) {
+    #wraper {
+        width: 65% !important;
+        height: 320px;
+        flex-direction: column;
+   }
+    #text {
+        font-size: 1em !important;
+   }
+    #container {
+        align-self: center;
+        margin-right: 1.5em;
+   }
+}
+.ThemeContainer{
+    max-height: 100px;
+    max-width: 100px;
+}

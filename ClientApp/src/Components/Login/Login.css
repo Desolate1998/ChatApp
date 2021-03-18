@@ -1,0 +1,86 @@
+.LoginContainer {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    height: 95vh;
+    width: 100%;
+}
+
+.LoginCard {
+    background-color: var(--CardBackground);
+    padding: 10px;
+    margin: auto;
+    width: 60%;
+    border-radius: 10px;
+
+    box-shadow: var(--Shadow);
+}
+
+.LoginCard h2 {
+    color: var(--SecondaryFontColor);
+    border-bottom: 1px solid;
+    width: 30%;
+    padding-bottom: 10px;
+  
+}
+
+.LoginCard .Login-Controls {
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 6px;
+    display: flex;
+    width: 60%;
+    float: left;
+
+}
+
+.LoginCard .Login-Input{
+  margin: 5px;
+  color: var(--fontColor) ;
+}
+.LoginCard .Login-Input label{
+   
+    color: var(--SecondaryFontColor) ;
+}
+.LoginCard .Login-Input input{
+   
+    color: white ;
+  }
+.LoginCard .Login-Image {
+ 
+    display: flex;
+    align-content: center;
+    width: 30%;
+    float: left;
+    align-items: center;
+    align-content: center;
+    position: relative;
+   
+}
+
+.LoginCard .Login-Image .LoginSvg {
+    max-height: 300px;
+    top:10px;
+    position: relative;
+    width:100%;
+}
+ .Login-Button .MuiButton-label{
+   color:var(--SecondaryFontColor) !important;
+
+}
+.Login-Button{
+    border:1px solid var(--SecondaryFontColor) !important;
+}
+
+@media only screen and (max-width: 800px){
+    .LoginCard .Login-Image .LoginSvg {
+        width:100%;
+    }
+    .LoginCard .Login-Controls {
+        width: 98%;
+    }
+    .LoginCard {
+        width: 100%;
+    }
+}
