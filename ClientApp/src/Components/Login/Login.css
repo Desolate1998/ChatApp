@@ -13,7 +13,7 @@
     margin: auto;
     width: 60%;
     border-radius: 10px;
-
+    position: relative;
     box-shadow: var(--Shadow);
 }
 
@@ -58,24 +58,41 @@
     position: relative;
    
 }
-
-.LoginCard .Login-Image .LoginSvg {
+.Login-Svg{
     max-height: 300px;
-    top:10px;
     position: relative;
-    width:100%;
+    bottom: -90px;
+    max-width: 400px;
 }
  .Login-Button .MuiButton-label{
    color:var(--SecondaryFontColor) !important;
 
 }
-.Login-Button{
+.LoginCard .Login-Button{
     border:1px solid var(--SecondaryFontColor) !important;
 }
-
-@media only screen and (max-width: 800px){
-    .LoginCard .Login-Image .LoginSvg {
-        width:100%;
+.LoginCard .Content-Container{
+   
+    z-index: 1;
+    min-height: 370px;
+    position: relative;
+}
+.LoginCard  .Sign-Up-Text-Color{
+    color: var(--SecondaryFontColor);
+    cursor: pointer;
+}
+.LoginCard  .Sign-Up-Text-Color:hover{
+    border-bottom: 1px solid var(--SecondaryFontColor);
+  
+}
+.LoginCard .Login-Forgot-Password:hover{
+    color:var(--SecondaryFontColor);
+    cursor: pointer;
+}
+@media only screen and (max-width: 1000px){
+    .LoginCard .Login-Image .Login-Svg {
+        width:0%;
+        visibility: hidden;
     }
     .LoginCard .Login-Controls {
         width: 98%;
