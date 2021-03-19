@@ -5,6 +5,7 @@
     align-content: center;
     height: 95vh;
     width: 100%;
+   
 }
 
 .LoginCard {
@@ -15,6 +16,7 @@
     border-radius: 10px;
     position: relative;
     box-shadow: var(--Shadow);
+
 }
 
 .LoginCard h2 {
@@ -32,21 +34,10 @@
     display: flex;
     width: 60%;
     float: left;
-
+  
 }
 
-.LoginCard .Login-Input{
-  margin: 5px;
-  color: var(--fontColor) ;
-}
-.LoginCard .Login-Input label{
-   
-    color: var(--SecondaryFontColor) ;
-}
-.LoginCard .Login-Input input{
-   
-    color: white ;
-  }
+
 .LoginCard .Login-Image {
  
     display: flex;
@@ -64,15 +55,11 @@
     bottom: -90px;
     max-width: 400px;
 }
- .Login-Button .MuiButton-label{
-   color:var(--SecondaryFontColor) !important;
 
-}
-.LoginCard .Login-Button{
-    border:1px solid var(--SecondaryFontColor) !important;
-}
+
 .LoginCard .Content-Container{
-   
+   overflow-y: hidden ;
+   overflow-x: hidden ;
     z-index: 1;
     min-height: 370px;
     position: relative;
@@ -80,6 +67,7 @@
 .LoginCard  .Sign-Up-Text-Color{
     color: var(--SecondaryFontColor);
     cursor: pointer;
+    text-decoration: none;
 }
 .LoginCard  .Sign-Up-Text-Color:hover{
     border-bottom: 1px solid var(--SecondaryFontColor);

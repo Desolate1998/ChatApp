@@ -11,7 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
 namespace api
 {
     public class Startup
@@ -31,6 +32,10 @@ namespace api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
+            });
+            services.AddDbContext<DataContext>(opt =>
+            { 
+                opt.UseSqlServer(Configuration.GetConnectionString("Development"));
             });
         }
 

@@ -1,0 +1,63 @@
+.SignUp-Container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    height: 95vh;
+    width: 100%;
+
+}
+
+.SignUp-Container .SignUp-Card {
+    background-color: var(--CardBackground);
+    padding: 10px;
+    margin: auto;
+    width: 80%;
+    border-radius: 10px;
+
+    box-shadow: var(--Shadow);
+}
+
+
+
+.SignUp-Card .LeftContent {
+    float: left;
+    width: 30%;
+    background-repeat: no-repeat;
+    background-size: 100% 97%;
+    object-fit: cover;
+}
+
+.SignUp-Container .Signup-SideImage {
+    width: 100%;
+    margin-top: 30%;
+    position: relative;
+}
+
+.SignUp-Container .rightContent {
+
+    align-items: center;
+    height: 100%;
+    float: left;
+    width: 60%;
+    height: 100%;
+    margin-left: 5%;
+
+}
+
+.SignUp-Container .Sign-Up-Title {
+    text-align: center;
+}
+
+.SignUp-Container label {
+
+    color: var(--SecondaryFontColor);
+}
+
+.SignUp-Button {
+    margin-right: 10px !important;
+}
+
+.SignUp-Container a {
+    text-decoration: none !important;
+}

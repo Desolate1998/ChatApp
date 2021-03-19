@@ -7,13 +7,15 @@ import {
   SessionHelper,
   SessionVariabels
 } from '../../HelperScripts/SessionHelper'
+import { SignUp } from '../SignUp/SignUp'
+import './Themes.css'
 export const App = () => {
   if (SessionHelper.GetVerable(SessionVariabels.Email) != null) {
     return (
       <Router>
         <Switch>
           <Route exact path="/SignUp">
-
+          <SignUp/>
           </Route>
           <Route >
            
