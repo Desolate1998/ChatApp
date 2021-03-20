@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sP/zOq/mBHNi0Q4ycu5Nnl91THaPTsDe8I20b0v9tyRIGCmhhokOb+7lxlcT91WVeDEtzkRFAOqhmI6FTlBB2Q==",
+  "dgSpecHash": "UyUM0mS44KwGdNzYSkHQ05cBxEO770VXzPCycalBZqhz0WXwciTSW0hc5LOBXNU6nJVb4G1ENVJIyq96UX2g0w==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\Personal\\ChatApp\\DataAccess\\DataAccess.csproj",
+  "projectFilePath": "D:\\Repos\\Personal\\ChatApp\\DataAccess\\Persistent.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\CTU\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\CTU\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

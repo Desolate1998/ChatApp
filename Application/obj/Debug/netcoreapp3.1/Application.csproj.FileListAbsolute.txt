@@ -1,0 +1,17 @@
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Application.deps.json
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Application.dll
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Application.pdb
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.csprojAssemblyReference.cache
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfoInputs.cache
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfo.cs
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.csproj.CoreCompileInputs.cache
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.dll
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.pdb
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Application.runtimeconfig.json
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Application.runtimeconfig.dev.json
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Domain.dll
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Domain.pdb
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.csproj.CopyComplete
+D:\Repos\Personal\ChatApp\Application\obj\Debug\netcoreapp3.1\Application.genruntimeconfig.cache
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Persistent.dll
+D:\Repos\Personal\ChatApp\Application\bin\Debug\netcoreapp3.1\Persistent.pdb

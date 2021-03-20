@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Application.Users;
+
 namespace api
 {
     public class Startup
@@ -27,7 +29,7 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+      
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,6 +38,14 @@ namespace api
             services.AddDbContext<DataContext>(opt =>
             { 
                 opt.UseSqlServer(Configuration.GetConnectionString("Development"));
+            });
+            services.AddScoped<IUserService, UserService>();
+            services.AddCors(config =>
+            {
+                config.AddPolicy("Secure?", config =>
+                {
+                    config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
             });
         }
 
@@ -52,7 +62,7 @@ namespace api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("Secure?");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

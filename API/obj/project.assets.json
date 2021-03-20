@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    ".NETCoreApp,Version=v3.1": {
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -247,10 +247,10 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
         },
         "compile": {
-          "lib/net5.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
@@ -268,7 +268,8 @@
           "Microsoft.Extensions.DependencyInjection": "5.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Options": "5.0.0"
+          "Microsoft.Extensions.Options": "5.0.0",
+          "System.Diagnostics.DiagnosticSource": "5.0.0"
         },
         "compile": {
           "lib/netstandard2.1/Microsoft.Extensions.Logging.dll": {}
@@ -293,10 +294,10 @@
           "Microsoft.Extensions.Primitives": "5.0.0"
         },
         "compile": {
-          "lib/net5.0/Microsoft.Extensions.Options.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Microsoft.Extensions.Options.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {}
         }
       },
       "Microsoft.Extensions.Primitives/5.0.0": {
@@ -534,10 +535,10 @@
           "Microsoft.OpenApi": "1.2.3"
         },
         "compile": {
-          "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -549,19 +550,19 @@
           "Swashbuckle.AspNetCore.Swagger": "6.1.1"
         },
         "compile": {
-          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         }
       },
       "Swashbuckle.AspNetCore.SwaggerUI/6.1.1": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -764,10 +765,10 @@
       "System.Diagnostics.DiagnosticSource/5.0.1": {
         "type": "package",
         "compile": {
-          "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.dll": {}
         },
         "runtime": {
-          "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.dll": {}
         }
       },
       "System.Diagnostics.Tools/4.3.0": {
@@ -1557,33 +1558,48 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "DataAccess/1.0.0": {
+      "Application/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.4",
+          "Newtonsoft.Json": "12.0.3",
+          "Persistent": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Application.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "EntityFramework": "6.4.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.4"
+        },
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      },
+      "Persistent/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Domain": "1.0.0",
           "EntityFramework": "6.4.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.4"
         },
         "compile": {
-          "bin/placeholder/DataAccess.dll": {}
+          "bin/placeholder/Persistent.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DataAccess.dll": {}
-        }
-      },
-      "Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "EntityFramework": "6.4.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.4"
-        },
-        "compile": {
-          "bin/placeholder/Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/Persistent.dll": {}
         }
       }
     }
@@ -5897,25 +5913,31 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "DataAccess/1.0.0": {
+    "Application/1.0.0": {
       "type": "project",
-      "path": "../DataAccess/DataAccess.csproj",
-      "msbuildProject": "../DataAccess/DataAccess.csproj"
+      "path": "../Application/Application.csproj",
+      "msbuildProject": "../Application/Application.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
       "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "Persistent/1.0.0": {
+      "type": "project",
+      "path": "../DataAccess/Persistent.csproj",
+      "msbuildProject": "../DataAccess/Persistent.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
-      "DataAccess >= 1.0.0",
+    ".NETCoreApp,Version=v3.1": [
+      "Application >= 1.0.0",
       "Domain >= 1.0.0",
       "EntityFramework >= 6.4.4",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.4",
       "Newtonsoft.Json >= 12.0.3",
+      "Persistent >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.1.1"
     ]
   },
@@ -5925,9 +5947,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\Personal\\ChatApp\\API\\api.csproj",
-      "projectName": "api",
-      "projectPath": "D:\\Repos\\Personal\\ChatApp\\API\\api.csproj",
+      "projectUniqueName": "D:\\Repos\\Personal\\ChatApp\\API\\API.csproj",
+      "projectName": "API",
+      "projectPath": "D:\\Repos\\Personal\\ChatApp\\API\\API.csproj",
       "packagesPath": "C:\\Users\\CTU\\.nuget\\packages\\",
       "outputPath": "D:\\Repos\\Personal\\ChatApp\\API\\obj\\",
       "projectStyle": "PackageReference",
@@ -5936,18 +5958,21 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0"
+        "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\Repos\\Personal\\ChatApp\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "D:\\Repos\\Personal\\ChatApp\\DataAccess\\DataAccess.csproj"
+            "D:\\Repos\\Personal\\ChatApp\\Application\\Application.csproj": {
+              "projectPath": "D:\\Repos\\Personal\\ChatApp\\Application\\Application.csproj"
+            },
+            "D:\\Repos\\Personal\\ChatApp\\DataAccess\\Persistent.csproj": {
+              "projectPath": "D:\\Repos\\Personal\\ChatApp\\DataAccess\\Persistent.csproj"
             },
             "D:\\Repos\\Personal\\ChatApp\\Domain\\Domain.csproj": {
               "projectPath": "D:\\Repos\\Personal\\ChatApp\\Domain\\Domain.csproj"
@@ -5962,8 +5987,8 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
+      "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "EntityFramework": {
             "target": "Package",
