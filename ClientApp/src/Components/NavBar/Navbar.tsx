@@ -12,10 +12,11 @@ import { HubConnectionBuilder } from '@microsoft/signalr'
 
 
 interface IProps {
-  AddFriendOnClick: any
+  AddFriendOnClick: Function
+  ViewFriendRequestsOnClick:Function
 }
 
-export const NavBar: React.FC<IProps> = ({ AddFriendOnClick }) => {
+export const NavBar: React.FC<IProps> = ({ AddFriendOnClick,ViewFriendRequestsOnClick }) => {
   const [DrawerOpen, setDrawer] = useState(false)
 
   function HandleDrawer () {
@@ -82,6 +83,15 @@ export const NavBar: React.FC<IProps> = ({ AddFriendOnClick }) => {
                 }}
               >
                 view Friends
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose()
+                  HandleDrawer()
+                  ViewFriendRequestsOnClick()
+                }}
+              >
+                view Friend Requests
               </MenuItem>
             </Menu>{' '}
             <Button color='primary' onClick={HandleDrawer}>

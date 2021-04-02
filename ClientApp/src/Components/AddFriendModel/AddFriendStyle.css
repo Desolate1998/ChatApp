@@ -23,9 +23,6 @@
 .model-Content .Cancel{
     width: 45%;
     margin-left: 5%;
-    border:1px solid #ef476f !important;
+
    
-}
-.model-Content .Cancel .MuiButton-label{
-    color: #ef476f !important
 }

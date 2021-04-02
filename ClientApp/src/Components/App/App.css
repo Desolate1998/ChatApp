@@ -32,4 +32,16 @@ h1 {
  }
  .MuiButton-outlined{
     border:1px solid var(--SecondaryFontColor) !important;
+
+}
+.Containedgreen{
+    background-color: var(--SecondaryFontColor) !important;
+    
+}
+.Containedgreen .MuiButton-label{
+    color: black !important;
+
+}
+.Containedgreen:hover{
+    background-color: rgb(27, 155, 84);
 }

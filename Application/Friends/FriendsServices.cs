@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Domain;
+using Domain.CommonUseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,26 +17,38 @@ namespace Application.Friends
             dbContext = _dbContext;
         }
 
-        public Task<bool> AcceptFriendRequest(string AcceptingEmail, string Email)
+        public async Task AcceptFriendRequest(int id)
+        {
+            FriendRequest request = await dbContext.FriendRequests.FirstOrDefaultAsync(x => x.id == id);
+    
+            int k =1;
+        }
+
+        public async Task DeclineRequest(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeclineRequest(string FromUser, string UserEmail)
+        public async Task DeleteFriend(string DeleteingEmail, string Email)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteFriend(string DeleteingEmail, string Email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<string>> GetAllRequests(string Email)
+        public async Task<List<FriendRequestsModel>> GetAllRequests(string Email)
         {
             User user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == Email);
-            List<string> Users = await (from U in dbContext.Users where U == user select U.Email).ToListAsync<string>();
-            return Users;
+            List<FriendRequestsModel> requests = await (
+                from R in dbContext.FriendRequests
+                join u in dbContext.Users on R.SentFrom.id equals u.id
+                where R.SentTo == user
+                select new FriendRequestsModel()
+                {
+                    email = u.Email,
+                    requestID = R.id
+                }
+
+                ).ToListAsync<FriendRequestsModel>();
+            return requests;
         }
 
         public Task<List<object>> GetFriends(string Email)
@@ -43,7 +56,7 @@ namespace Application.Friends
             throw new NotImplementedException();
         }
 
-        public async Task<string> SendFriendReques(string SentToEmail, string FromUser)
+        public async Task<string> SendFriendRequest(string SentToEmail, string FromUser)
         {
             User SendToUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == SentToEmail);
             User RequestingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == FromUser);

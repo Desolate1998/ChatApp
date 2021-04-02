@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace Application.ConnectionServices
 {
     public class ConnectionServices : IConnectionServices
@@ -45,7 +46,13 @@ namespace Application.ConnectionServices
             connections.user = user;
             connections.DateConnected = DateTime.UtcNow;
             connections.ConnectionCode = ConnectionID;
-            await dbContext.UserConnections.AddAsync(connections);
+            UserConnections OldUserConnection = await dbContext.UserConnections.FirstOrDefaultAsync(x => x.user == user);
+            if (OldUserConnection !=null)
+            {
+                dbContext.UserConnections.Remove(OldUserConnection);
+      
+            }
+             await dbContext.UserConnections.AddAsync(connections);
             dbContext.SaveChanges();
         }
     }

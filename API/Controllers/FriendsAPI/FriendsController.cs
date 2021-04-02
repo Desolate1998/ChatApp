@@ -1,10 +1,10 @@
 ﻿using Application.Friends;
+using Domain.CommonUseModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Domain;
+
 namespace API.Controllers.FriendsAPI
 {
     public class FriendsController : Controller, IFriendsAPI
@@ -21,25 +21,27 @@ namespace API.Controllers.FriendsAPI
         {
             return true;
         }
+        [Route("/Friends/AcceptFriendRequest"), HttpGet]
+        public async Task<IActionResult> AcceptFriendRequest([FromQuery]int id)
+        {
+            await friendServices.AcceptFriendRequest(id);
+            return Ok();
+        }
+        [Route("/Friends/DeclineRequest"), HttpPost]
+        public async Task<IActionResult> DeclineRequest(int id)
+        {
+            await friendServices.DeclineRequest(id);
+            return Ok();
+        }
 
-        public Task<bool> AcceptFriendRequest(string AcceptingEmail, string Email)
+        public Task<IActionResult> DeleteFriend(string DeleteingEmail, string Email)
         {
             throw new NotImplementedException();
         }
-
-        public Task<IActionResult> DeclineRequest(string FromUser, string UserEmail)
+        [Route("/Friends/GetAllRequests"), HttpGet]
+        public async Task<List<FriendRequestsModel>> GetAllRequests([FromQuery] string Email)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteFriend(string DeleteingEmail, string Email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<string>> GetAllRequests(string Email)
-        {
-            List<string> Data = await friendServices.GetAllRequests(Email);
+            List<FriendRequestsModel> Data = await friendServices.GetAllRequests(Email);
             return Data;
         }
 
@@ -47,10 +49,10 @@ namespace API.Controllers.FriendsAPI
         {
             throw new NotImplementedException();
         }
-        [Route("/Friends/SendFriendRequest"),HttpPost]
+        [Route("/Friends/SendFriendRequest"), HttpPost]
         public async Task<string> SendFriendRequest([FromQuery] string SentToEmail, [FromQuery] string FromUser)
         {
-            return await friendServices.SendFriendReques(SentToEmail, FromUser);
+            return await friendServices.SendFriendRequest(SentToEmail, FromUser);
         }
     }
 }

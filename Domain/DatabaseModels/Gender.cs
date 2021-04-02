@@ -11,6 +11,7 @@ namespace Domain
     {
         [Key]
         public int id { get; set; }
+        [Required,MaxLength(20)]
         public string Name { get; set; }
     }
 }

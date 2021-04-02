@@ -1,0 +1,37 @@
+.FriendRequestsContainer h2{
+    color: var(--SecondaryFontColor);
+}
+.MuiDialog-paper{
+    padding: 10px !important;
+    background-color: var(--Body) !important;
+}
+
+.AcceptFriendRequestButton{
+    margin-right:20px  !important;
+    border-radius: 100px !important;
+}
+.DeclineFriendRequestButton{
+    border-radius: 100px !important;
+    border-color: rgb(192, 61, 61) !important;
+}
+.DeclineFriendRequestButton .MuiButton-label{
+    color: rgb(192, 61, 61) !important;
+}
+.DeclineFriendRequestButton:hover{
+    background-color: rgb(192, 61, 61) !important;
+}
+.DeclineFriendRequestButton:hover > .MuiButton-label{
+    color: rgb(0, 0, 0) !important;
+}
+.AcceptFriendRequestButton:hover{
+    background-color: var(--SecondaryFontColor) !important;
+}
+.AcceptFriendRequestButton:hover > .MuiButton-label{
+    color: rgb(0, 0, 0) !important;
+}
+.FriendRequestItemContainer{
+    border: 1px solid rgb(27, 27, 27);
+}
+.FriendRequestItemContainer:hover{
+    background-color: rgb(27, 27, 27) !important;
+}

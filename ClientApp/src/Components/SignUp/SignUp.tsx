@@ -21,7 +21,7 @@ export const SignUp = () => {
         'Passowrd Error',
         'Passwords Does Not Match Or Are Missing'
       )
-    } else if (Password.length < 8) {
+    } else if (Password.length < 2) {
       Notfications.Warning('Password Error', 'Passsword Is To Weak')
     } else if (EmailAddress === '') {
       Notfications.Warning('Email Error', 'Missing Email Adress')

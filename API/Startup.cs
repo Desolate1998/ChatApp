@@ -55,6 +55,7 @@ namespace api
             services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("Development"));
+             
             });
 
             services.AddScoped<IUserService, UserService>();

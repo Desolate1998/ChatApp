@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DataAccess.Migrations
+namespace Persistent.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -26,10 +26,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserXid")
+                    b.Property<int>("UserXid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserYid")
+                    b.Property<int>("UserYid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
@@ -54,12 +54,12 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateConnected")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("userid")
+                    b.Property<int>("Userid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("userid");
+                    b.HasIndex("Userid");
 
                     b.ToTable("UserConnections");
                 });
@@ -71,17 +71,19 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("SentFromid")
+                    b.Property<int>("SentFromid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SentToid")
+                    b.Property<int>("SentToid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("SentFromid");
+                    b.HasIndex("SentFromid")
+                        .IsUnique();
 
-                    b.HasIndex("SentToid");
+                    b.HasIndex("SentToid")
+                        .IsUnique();
 
                     b.ToTable("FriendRequests");
                 });
@@ -94,7 +96,9 @@ namespace DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("id");
 
@@ -108,35 +112,40 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("Genderid")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("Genderid");
+                    b.HasIndex("Genderid")
+                        .IsUnique()
+                        .HasFilter("[Genderid] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -145,11 +154,15 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.User", "UserX")
                         .WithMany()
-                        .HasForeignKey("UserXid");
+                        .HasForeignKey("UserXid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Domain.User", "UserY")
                         .WithMany()
-                        .HasForeignKey("UserYid");
+                        .HasForeignKey("UserYid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("UserX");
 
@@ -160,7 +173,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.User", "user")
                         .WithMany()
-                        .HasForeignKey("userid");
+                        .HasForeignKey("Userid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("user");
                 });
@@ -168,12 +183,16 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.FriendRequest", b =>
                 {
                     b.HasOne("Domain.User", "SentFrom")
-                        .WithMany()
-                        .HasForeignKey("SentFromid");
+                        .WithOne()
+                        .HasForeignKey("Domain.FriendRequest", "SentFromid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Domain.User", "SentTo")
-                        .WithMany()
-                        .HasForeignKey("SentToid");
+                        .WithOne()
+                        .HasForeignKey("Domain.FriendRequest", "SentToid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("SentFrom");
 
@@ -183,8 +202,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.User", b =>
                 {
                     b.HasOne("Domain.Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("Genderid");
+                        .WithOne()
+                        .HasForeignKey("Domain.User", "Genderid");
 
                     b.Navigation("Gender");
                 });

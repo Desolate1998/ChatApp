@@ -1,58 +1,52 @@
 import React, { useEffect, useState } from 'react'
-
 import './FrontPageStyle.css'
 import { ChatCard } from './../ChatCard/ChatCard'
-import { Button, Modal, TextField } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import { NavBar } from '../NavBar/Navbar'
 import { AddFriendModel } from '../AddFriendModel/AddFriendModel'
 import { Message } from './../Message/Message'
-import { HubHelper } from '../../infrastructure/HelperScripts/HubHelper'
 import {
   SessionHelper,
   SessionVariabels
 } from '../../infrastructure/HelperScripts/SessionHelper'
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
 import * as data from '../../Config.json'
-import * as signalR from '@microsoft/signalr'
 import { Notfications } from '../../infrastructure/HelperScripts/Notifications'
-
-
+import { ViewFriendRequestsModel } from './../ViewFriendRequestModel/ViewFriendRequestsModel'
+import { IFriendRequest } from './../../infrastructure/Models/FriendRequest'
+import { FriendAPI } from '../../API/Agent'
 
 export const FrontPage = () => {
-  const [HubConnection, setHubConnection] = useState<HubConnection|null>(null);
-  const [AddfriendOpen, setAddFriendOpen] = useState<boolean>(false);
+  const [HubConnection, setHubConnection] = useState<HubConnection | null>(null)
+  const [AddfriendOpen, setAddFriendOpen] = useState<boolean>(false)
+  const [friendRequests, setFriendsRequets] = useState<IFriendRequest[]>([])
+  const [ViewFriendRequestOpen, setViewFriendRequestOpen] = useState<boolean>(
+    false
+  )
 
-
-useEffect(() => {
-  const createHubConnection = async () => {
-
-    // Build new Hub Connection, url is currently hard coded.
-    const hubConnect = new HubConnectionBuilder()
-        .withUrl(data.HubUrl)
-        .build();
-    try {
+  useEffect(() => {
+    const createHubConnection = async () => {
+      // Build new Hub Connection, url is currently hard coded.
+      const hubConnect = new HubConnectionBuilder().withUrl(data.HubUrl).build()
+      try {
         await hubConnect.start()
         hubConnect.invoke(
           'SetClientConnectionID',
-          SessionHelper.GetVerable(SessionVariabels.Email));
+          SessionHelper.GetVerable(SessionVariabels.Email)
+        )
         hubConnect.on('Notfication', Message => {
-          Notfications.info("New Request","You have a new friend request!");
+          Notfications.info('New Request', 'You have a new friend request!')
         })
-     
-    }
-    catch (err) {
-        alert(err);
+      } catch (err) {
+        alert(err)
         console.log('Error while establishing connection: ' + { err })
+      }
+      setHubConnection(hubConnect)
     }
-    setHubConnection(hubConnect);
 
-}
+    createHubConnection()
+  }, [])
 
-createHubConnection();
-
-
-},[] ) 
-  
   function handleAddFriendOnclick () {
     setAddFriendOpen(true)
   }
@@ -60,11 +54,27 @@ createHubConnection();
     setAddFriendOpen(false)
   }
 
-  function handleNotfication (Email:string) {
-    HubConnection!.invoke(
-      'SendRequestNotfication',
-      Email
-    )
+  async function HandleFriendRequestOpen () {
+    await FriendAPI.GetAllFriendRequests(
+      SessionHelper.GetVerable(SessionVariabels.Email)!
+    ).then(response => {
+      setFriendsRequets([...response])
+    })
+    setViewFriendRequestOpen(!ViewFriendRequestOpen)
+  }
+
+  function handleNotfication (Email: string) {
+    HubConnection!.invoke('SendRequestNotfication', Email)
+  }
+  function handleAcceptFriendRequest (requestID: number) {
+    FriendAPI.AcceptFriendRequest(requestID).then(()=>{
+
+    })
+  }
+  function handleDeclineFriendRequest (requestID: number) {
+    FriendAPI.DeclineFreiendRequest(requestID).then(()=>{
+      
+    })
   }
   return (
     <div className='Front-Page-Container'>
@@ -73,7 +83,18 @@ createHubConnection();
         close={handleAddFriendClose}
         handleSendNotfication={handleNotfication}
       />
-      <NavBar AddFriendOnClick={handleAddFriendOnclick} />
+      <ViewFriendRequestsModel
+        handleFriendAcceptMethod={handleAcceptFriendRequest}
+        handleFriendDeclineMethod={handleDeclineFriendRequest}
+        open={ViewFriendRequestOpen}
+        handleClose={HandleFriendRequestOpen}
+        requests={friendRequests}
+      />
+
+      <NavBar
+        AddFriendOnClick={handleAddFriendOnclick}
+        ViewFriendRequestsOnClick={HandleFriendRequestOpen}
+      />
       <div className='Content-Container'>
         <div className='ChatsHistory'>
           <TextField

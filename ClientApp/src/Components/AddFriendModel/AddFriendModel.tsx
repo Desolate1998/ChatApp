@@ -1,6 +1,6 @@
 import { Button, Modal, TextField } from '@material-ui/core'
 
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { FriendAPI } from '../../API/Agent'
 import {
   SessionHelper,
@@ -11,13 +11,16 @@ import { Notfications } from './../../infrastructure/HelperScripts/Notifications
 import { ISendFriendReequestModel } from './../../infrastructure/Models/SendFriendRequestModel'
 
 interface IProps {
-  open: any;
-  close: Function;
-  handleSendNotfication:Function;
+  open: any
+  close: Function
+  handleSendNotfication: Function
 }
 
-export const AddFriendModel: React.FC<IProps> = ({ open, close,handleSendNotfication }) => {
-  
+export const AddFriendModel: React.FC<IProps> = ({
+  open,
+  close,
+  handleSendNotfication
+}) => {
   const [Email, setEmail] = useState<string>('')
 
   function handleOnSubmit () {
@@ -28,17 +31,17 @@ export const AddFriendModel: React.FC<IProps> = ({ open, close,handleSendNotfica
     console.log(Data)
     if (Email !== '') {
       FriendAPI.SendFriendRequest(Data).then(response => {
-        if (response === '404') {
+        if (response == '404') {
           Notfications.Danager(
             'Could not add friend',
             'No such email found please check spelling'
           )
-        } else if (response === '202') {
+        } else if (response == '202') {
           Notfications.Success('Good Job!', 'Request has been sent')
-         
-          handleSendNotfication(Email);
-          setEmail('');
-          close();
+
+          handleSendNotfication(Email)
+          setEmail('')
+          close()
         } else {
           Notfications.info('oops', response)
         }
@@ -70,15 +73,12 @@ export const AddFriendModel: React.FC<IProps> = ({ open, close,handleSendNotfica
             value={Email}
             onChange={handleEmailTextChange}
           />
-          <Button
-            variant='outlined'
-            className='SendFriendRequest'
-            onClick={handleOnSubmit}
-          >
+          <Button className='SendFriendRequest Containedgreen' onClick={handleOnSubmit}        variant='contained'>
             Send Friend Request
           </Button>
           <Button
-            variant='outlined'
+            color='secondary'
+            variant='contained'
             className='Cancel'
             onClick={() => {
               setEmail('')
