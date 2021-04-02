@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
 import { IEmailAndPassword } from '../infrastructure/Models/EmailAndPasswordModel'
-import * as data from './Config.json'
+import * as data from '../Config.json'
 import { Notfications } from './../infrastructure/HelperScripts/Notifications'
+import { ISendFriendReequestModel } from '../infrastructure/Models/SendFriendRequestModel'
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data?response.data:<T>{}
 const requests = {
@@ -24,7 +25,12 @@ const requests = {
 
 const UserAPI = {
   Register: (Data: IEmailAndPassword) =>
-    requests.post<string>('Users/Register', Data)
+    requests.post<string>('Users/Register', Data),
+  Login:(Data:IEmailAndPassword)=> requests.post<boolean>('Users/Login',Data)
 }
 
-export { UserAPI }
+
+const FriendAPI ={
+  SendFriendRequest:(Data:ISendFriendReequestModel)=>requests.post<string>( `Friends/SendFriendRequest/?FromUser=${Data.FromUser}&&SentToEmail=${Data.SentToEmail}`,{})
+}
+export { UserAPI ,FriendAPI}

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using Domain.DatabaseModels;
+
 namespace DataAccess
 {
     public class DataContext:DbContext
@@ -15,7 +17,9 @@ namespace DataAccess
         }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<User> Users    { get; set; }
-
-
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<Friends> Friends { get; set; }
+        public DbSet<UserConnections> UserConnections { get; set; }
     }
+
 }

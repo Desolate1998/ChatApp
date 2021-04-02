@@ -42,9 +42,11 @@ namespace Application.Users
            
         }
 
-        Task<string> IUserService.Login(EmailAndPasswordModel Data)
+       
+        public async Task<bool> Login(EmailAndPasswordModel Data)
         {
-            throw new NotImplementedException();
+            User user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == Data.Email && x.Password == Data.Password);
+            return user != null ? true : false;
         }
 
    

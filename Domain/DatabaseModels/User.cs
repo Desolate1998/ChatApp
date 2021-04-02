@@ -21,5 +21,6 @@ namespace Domain
         public string LastName { get; set; }
         [Key]
         public Gender Gender { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

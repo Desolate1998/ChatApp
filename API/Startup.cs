@@ -14,6 +14,9 @@ using Microsoft.OpenApi.Models;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Application.Users;
+using Application.Friends;
+using API.Hubs;
+using Application.ConnectionServices;
 
 namespace api
 {
@@ -29,29 +32,48 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-      
+
+
+
             services.AddControllers();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithExposedHeaders("WWW-Authenticate")
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
             });
             services.AddDbContext<DataContext>(opt =>
-            { 
+            {
                 opt.UseSqlServer(Configuration.GetConnectionString("Development"));
             });
+
             services.AddScoped<IUserService, UserService>();
-            services.AddCors(config =>
-            {
-                config.AddPolicy("Secure?", config =>
-                {
-                    config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                });
-            });
+            services.AddScoped<IFriendServices, FriendsServices>();
+            services.AddScoped<IConnectionServices, ConnectionServices>();
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
+
+
+
+            app.UseCors("CorsPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,13 +84,17 @@ namespace api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors("Secure?");
+            app.UseStaticFiles();
             app.UseAuthorization();
 
+            app.UseSignalR(routes => { routes.MapHub<MainHub>("/Hub/MainHub"); });
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ThemeButton } from '../ThemeButton/ThemeButton'
 import './App.css'
 import { Login } from './../Login/Login'
@@ -11,19 +11,23 @@ import {
 import { SignUp } from '../SignUp/SignUp'
 import './Themes.css'
 import ReactNotification from 'react-notifications-component'
+import { FrontPage } from '../FrontPage/FrontPage'
+import { HubHelper } from '../../infrastructure/HelperScripts/HubHelper'
 
 export const App = () => {
-  if (SessionHelper.GetVerable(SessionVariabels.Email) != null) {
+  const [LogedIn, setLogedIn] = useState<boolean>(false);
+  
+  if (!LogedIn) {
+  
     return (
       <Router>
-        <ReactNotification/>
+        <ReactNotification />
         <Switch>
-          <Route exact path="/SignUp">
-          <SignUp/>
+          <Route exact path='/SignUp'>
+            <SignUp />
           </Route>
-          <Route >
-           
-            <Login />
+          <Route>
+            <Login logedIn={()=>{setLogedIn(true)}} />
           </Route>
         </Switch>
       </Router>
@@ -32,10 +36,10 @@ export const App = () => {
     return (
       <div>
         <Router>
-        <ReactNotification/>
+          <ReactNotification />
           <Switch>
-            <Route exact path='/Login'>
-              <Login />
+            <Route exact path='/'>
+              <FrontPage  />
             </Route>
           </Switch>
         </Router>

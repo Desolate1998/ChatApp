@@ -1,0 +1,74 @@
+.Recived {
+    padding: 20px;
+    max-width: 30%;
+    min-width: 30%;
+    border: 1px solid var(--Body);
+    font-size: small;
+    text-size-adjust: 10px;
+    box-shadow: var(--Shadow);
+    background-color: var(--Body);
+    border-radius: 20px;
+
+}
+
+.sent {
+    left: 60%;
+    border: 1px solid var(--Body);
+    border-radius: 20px;
+    position: relative;
+    max-width: 30%;
+    min-width: 30%;
+    box-shadow: var(--Shadow);
+    padding: 20px;
+    text-size-adjust: 10px;
+    font-size: small;
+    background-color: var(--Body);
+}
+.MassagePre{
+    text-overflow: ellipsis; 
+    word-break: break-all;
+  
+    max-width:100%;
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.MessageUserName{
+    color:var(--SecondaryFontColor);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1aea6a;
+  border: 0px solid #f00000;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1aea6a;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #1aea6a;
+}
+::-webkit-scrollbar-track {
+  background: #454545;
+  border: 0px solid #ffffff;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #454545;
+}
+::-webkit-scrollbar-track:active {
+  background: #454545;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

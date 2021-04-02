@@ -1,0 +1,12 @@
+.MuiListItem-root {
+    color: black !important;
+    
+}
+.MuiToolbar-root{
+    background-color:rgb(66, 66, 66);
+}
+.MuiDrawer-paperAnchorLeft{
+    background-color:var(--Body) !important;
+    width: 10%;
+    padding: 5px;
+}

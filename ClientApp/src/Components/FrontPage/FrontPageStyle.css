@@ -1,0 +1,66 @@
+.Front-Page-Container {
+    background-color: var(--CardBackground);
+    height: 95vh;
+    overflow-y: hidden;
+    width: 87%;
+    margin: auto;
+    box-shadow: var(--Shadow);
+}
+
+.Front-Page-Container .ChatsHistory {
+
+    height: 89%;
+    width: 25%;
+    float: left;
+    padding: 0;
+    border-right: 1px solid rgb(36, 36, 36);
+}
+
+.Front-Page-Container .Content-Container {
+    height: 100%;
+
+}
+
+.Front-Page-Container .ChatHistoryContent::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+.Front-Page-Container .Chat {
+
+    width: 70%;
+    padding: 2%;
+    float: left;
+    height: 75%;
+
+}
+.chatTextArea{
+
+    height: 95%;
+    margin-bottom: 2%;
+    overflow-y: scroll;
+}
+.Front-Page-Container .Searcher {
+    margin-left: 5%;
+    margin-top: 5%;
+    width: 90%;
+
+}
+
+.Front-Page-Container .Text-Input{
+    background: none;
+    width: 90%;
+    height: 10%;
+    resize: none;
+    padding-left: 2%;
+    padding-right: 2%;
+    
+}
+.Front-Page-Container .Text-Input::-webkit-scrollbar{
+    visibility: hidden;
+}
+.Front-Page-Container .ChatHistoryContent {
+
+    height: 85% !important;
+    overflow-Y: scroll;
+}
+

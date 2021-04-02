@@ -1,0 +1,31 @@
+.model-Content{
+    width: 40%;
+    margin: auto;
+  
+    background-color: var(--CardBackground);
+    top:20vh;
+    position: relative;
+    padding: 5px;
+    box-shadow: var(--Shadow);
+    
+}
+.model-Content h2{
+    color: var(--SecondaryFontColor);
+    text-align: center;
+}
+.model-Content .MUI-Input{
+    width: 100%;
+}
+.model-Content .SendFriendRequest{
+    width: 45%;
+    margin-left: 2%;
+}
+.model-Content .Cancel{
+    width: 45%;
+    margin-left: 5%;
+    border:1px solid #ef476f !important;
+   
+}
+.model-Content .Cancel .MuiButton-label{
+    color: #ef476f !important
+}

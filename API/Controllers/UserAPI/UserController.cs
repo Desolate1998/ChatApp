@@ -21,11 +21,10 @@ namespace api.Controllers
         {
             throw new NotImplementedException();
         }
-
-        public async Task<string> Login(EmailAndPasswordModel Data)
+        [Route("/Users/Login"), HttpPost]
+        public async Task<bool> Login([FromBody]EmailAndPasswordModel Data)
         {
-            throw new NotImplementedException();
-
+            return await UserServices.Login(Data);
         }
 
         [Route("/Users/Register"),HttpPost]

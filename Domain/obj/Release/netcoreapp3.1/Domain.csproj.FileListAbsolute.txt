@@ -1,0 +1,12 @@
+D:\Repos\Personal\ChatApp\Domain\bin\Release\netcoreapp3.1\Domain.deps.json
+D:\Repos\Personal\ChatApp\Domain\bin\Release\netcoreapp3.1\Domain.runtimeconfig.json
+D:\Repos\Personal\ChatApp\Domain\bin\Release\netcoreapp3.1\Domain.runtimeconfig.dev.json
+D:\Repos\Personal\ChatApp\Domain\bin\Release\netcoreapp3.1\Domain.dll
+D:\Repos\Personal\ChatApp\Domain\bin\Release\netcoreapp3.1\Domain.pdb
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.csprojAssemblyReference.cache
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfoInputs.cache
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfo.cs
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.csproj.CoreCompileInputs.cache
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.dll
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.pdb
+D:\Repos\Personal\ChatApp\Domain\obj\Release\netcoreapp3.1\Domain.genruntimeconfig.cache

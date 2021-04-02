@@ -3,17 +3,18 @@ import { ThemeButton } from '../ThemeButton/ThemeButton'
 import './SignUp.css'
 import SideImage from '../../Resources/SVG/SocialInteraction.svg'
 import { Button, TextField } from '@material-ui/core'
-import { Route } from 'react-router'
+import { Redirect, Route } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Notfications } from './../../infrastructure/HelperScripts/Notifications'
 import { UserAPI } from '../../API/Agent'
 import { IEmailAndPassword } from './../../infrastructure/Models/EmailAndPasswordModel'
+import { useHistory } from "react-router-dom"
 
 export const SignUp = () => {
   const [EmailAddress, setEmailAddress] = useState<string>('')
   const [Password, setPassword] = useState<string>('')
   const [ConfirmPassword, setConfirmPassword] = useState<string>('')
-
+  const history = useHistory();
   function HandleSubmit () {
     if (Password !== ConfirmPassword || Password === '') {
       Notfications.Warning(
@@ -33,14 +34,18 @@ export const SignUp = () => {
       UserAPI.Register(Data)
         .then(Response => {
           if (Response === 'Success') {
-            Notfications.Success('Good Job!', 'You are now registred')
+            Notfications.Success('Good Job!', 'You are now registred');
+            setEmailAddress('');
+            setPassword('');
+            setConfirmPassword('');
+            history.push("/login",{from:'SignUp'})
           } else {
             Notfications.Danager('Error', Response)
           }
         })
         .catch(Error => {
           Notfications.Danager('Error', 'Please try again later')
-         
+      
         })
     }
   }

@@ -19,6 +19,73 @@ namespace DataAccess.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domain.DatabaseModels.Friends", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("UserXid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserYid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserXid");
+
+                    b.HasIndex("UserYid");
+
+                    b.ToTable("Friends");
+                });
+
+            modelBuilder.Entity("Domain.DatabaseModels.UserConnections", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConnectionCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateConnected")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("userid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("userid");
+
+                    b.ToTable("UserConnections");
+                });
+
+            modelBuilder.Entity("Domain.FriendRequest", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("SentFromid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SentToid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("SentFromid");
+
+                    b.HasIndex("SentToid");
+
+                    b.ToTable("FriendRequests");
+                });
+
             modelBuilder.Entity("Domain.Gender", b =>
                 {
                     b.Property<int>("id")
@@ -64,11 +131,53 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("id");
 
                     b.HasIndex("Genderid");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.DatabaseModels.Friends", b =>
+                {
+                    b.HasOne("Domain.User", "UserX")
+                        .WithMany()
+                        .HasForeignKey("UserXid");
+
+                    b.HasOne("Domain.User", "UserY")
+                        .WithMany()
+                        .HasForeignKey("UserYid");
+
+                    b.Navigation("UserX");
+
+                    b.Navigation("UserY");
+                });
+
+            modelBuilder.Entity("Domain.DatabaseModels.UserConnections", b =>
+                {
+                    b.HasOne("Domain.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userid");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Domain.FriendRequest", b =>
+                {
+                    b.HasOne("Domain.User", "SentFrom")
+                        .WithMany()
+                        .HasForeignKey("SentFromid");
+
+                    b.HasOne("Domain.User", "SentTo")
+                        .WithMany()
+                        .HasForeignKey("SentToid");
+
+                    b.Navigation("SentFrom");
+
+                    b.Navigation("SentTo");
                 });
 
             modelBuilder.Entity("Domain.User", b =>
