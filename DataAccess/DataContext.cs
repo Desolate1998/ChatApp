@@ -1,27 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System.Collections.Generic;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain;
+﻿using Domain;
 using Domain.DatabaseModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
-    public class DataContext:DbContext
+    public class DataContext : DbContext
     {
 
         public DataContext(DbContextOptions ops) : base(ops)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             modelBuilder.Entity<Gender>(ent =>
             {
                 ent.HasKey(x => x.id);
@@ -36,27 +29,26 @@ namespace DataAccess
             modelBuilder.Entity<FriendRequest>(ent =>
             {
                 ent.HasKey(x => x.id);
-                ent.HasOne(d => d.SentTo).WithOne().OnDelete(DeleteBehavior.NoAction);
-                ent.HasOne(d => d.SentFrom).WithOne().OnDelete(DeleteBehavior.NoAction);
-
+                ent.HasOne(e => e.FromUser)
+                    .WithMany(x => x.SentFriendRequets)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasForeignKey(x => x.FromUserId);
+                ent.HasOne(d => d.ToUser)
+                    .WithMany(x => x.RecivedFriendRequests)
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .HasForeignKey(x=>x.ToUserId);
             });
 
-            modelBuilder.Entity<Friends>(ent =>
-            {
-                ent.HasKey(x => x.id);
-                ent.HasOne(x => x.UserX).WithMany().OnDelete(DeleteBehavior.NoAction);
-                ent.HasOne(x => x.UserY).WithMany().OnDelete(DeleteBehavior.NoAction);
 
-            });
             modelBuilder.Entity<UserConnections>(ent =>
             {
                 ent.HasKey(x => x.id);
             });
         }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<User> Users    { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
-        public DbSet<Friends> Friends { get; set; }
+    
         public DbSet<UserConnections> UserConnections { get; set; }
     }
 

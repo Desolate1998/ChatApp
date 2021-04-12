@@ -12,7 +12,7 @@ namespace API.Controllers.FriendsAPI
         Task<string> SendFriendRequest(string SentToEmail, string FromUser);
         Task<IActionResult> AcceptFriendRequest(int id);
         Task<IActionResult> DeleteFriend(string DeleteingEmail, string Email);
-        Task<IActionResult> GetFriends(string Email);
+        Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task<IActionResult> DeclineRequest(int id);
     }

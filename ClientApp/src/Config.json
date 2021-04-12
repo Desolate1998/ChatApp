@@ -1,4 +1,4 @@
 {
-    "Route":"http://localhost:45151/",
-    "HubUrl":"http://localhost:45151/Hub/MainHub"
+    "Route":"http://10.0.0.12:45455/",
+    "HubUrl":"http://10.0.0.12:45455/Hub/MainHub"
 }

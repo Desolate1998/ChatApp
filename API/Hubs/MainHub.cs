@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.ConnectionServices;
+﻿using Application.ConnectionServices;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 namespace API.Hubs
 {
-    public class MainHub:Hub
+    public class MainHub : Hub
     {
         private IConnectionServices connectionServices;
 
@@ -21,11 +21,11 @@ namespace API.Hubs
         public async Task SendRequestNotfication(string Email)
         {
             string ConnectionID = await connectionServices.GetConnectionID(Email);
-            if (ConnectionID != string.Empty)
+            if (ConnectionID != null)
             {
                 await Clients.Client(ConnectionID).SendAsync("Notfication", "You have a new friend Request!");
             }
-           
+
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Persistent.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210402211350_AllowedNulsInUserTable")]
-    partial class AllowedNulsInUserTable
+    [Migration("20210404135917_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,28 +20,6 @@ namespace Persistent.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Domain.DatabaseModels.Friends", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("UserXid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserYid")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("UserXid");
-
-                    b.HasIndex("UserYid");
-
-                    b.ToTable("Friends");
-                });
 
             modelBuilder.Entity("Domain.DatabaseModels.UserConnections", b =>
                 {
@@ -73,19 +51,20 @@ namespace Persistent.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SentFromid")
+                    b.Property<int>("FromUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SentToid")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ToUserId")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("SentFromid")
-                        .IsUnique();
+                    b.HasIndex("FromUserId");
 
-                    b.HasIndex("SentToid")
-                        .IsUnique();
+                    b.HasIndex("ToUserId");
 
                     b.ToTable("FriendRequests");
                 });
@@ -152,25 +131,6 @@ namespace Persistent.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.DatabaseModels.Friends", b =>
-                {
-                    b.HasOne("Domain.User", "UserX")
-                        .WithMany()
-                        .HasForeignKey("UserXid")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.User", "UserY")
-                        .WithMany()
-                        .HasForeignKey("UserYid")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("UserX");
-
-                    b.Navigation("UserY");
-                });
-
             modelBuilder.Entity("Domain.DatabaseModels.UserConnections", b =>
                 {
                     b.HasOne("Domain.User", "user")
@@ -184,21 +144,21 @@ namespace Persistent.Migrations
 
             modelBuilder.Entity("Domain.FriendRequest", b =>
                 {
-                    b.HasOne("Domain.User", "SentFrom")
-                        .WithOne()
-                        .HasForeignKey("Domain.FriendRequest", "SentFromid")
+                    b.HasOne("Domain.User", "FromUser")
+                        .WithMany("SentFriendRequets")
+                        .HasForeignKey("FromUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.User", "ToUser")
+                        .WithMany("RecivedFriendRequests")
+                        .HasForeignKey("ToUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Domain.User", "SentTo")
-                        .WithOne()
-                        .HasForeignKey("Domain.FriendRequest", "SentToid")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Navigation("FromUser");
 
-                    b.Navigation("SentFrom");
-
-                    b.Navigation("SentTo");
+                    b.Navigation("ToUser");
                 });
 
             modelBuilder.Entity("Domain.User", b =>
@@ -208,6 +168,13 @@ namespace Persistent.Migrations
                         .HasForeignKey("Domain.User", "Genderid");
 
                     b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("Domain.User", b =>
+                {
+                    b.Navigation("RecivedFriendRequests");
+
+                    b.Navigation("SentFriendRequets");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ namespace Application.Friends
         Task<string> SendFriendRequest(string SentToEmail,string FromUser);
         Task  AcceptFriendRequest(int id);
         Task DeleteFriend(string DeleteingEmail, string Email);
-        Task<List<object>> GetFriends(string Email);
+        Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task DeclineRequest(int id);
     }

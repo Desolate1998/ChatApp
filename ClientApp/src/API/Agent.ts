@@ -4,6 +4,7 @@ import * as data from '../Config.json'
 import { Notfications } from './../infrastructure/HelperScripts/Notifications'
 import { ISendFriendReequestModel } from '../infrastructure/Models/SendFriendRequestModel'
 import { IFriendRequest } from './../infrastructure/Models/FriendRequest'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const responseBody = <T>(response: AxiosResponse<T>) =>
   response.data ? response.data : <T>{}
@@ -38,8 +39,8 @@ const FriendAPI = {
     ),
   GetAllFriendRequests: (Data: string) =>
     requests.get<IFriendRequest[]>('Friends/GetAllRequests/?Email=' + Data),
-    AcceptFriendRequest:(id:Number)=>requests.get('Friends/AcceptFriendRequest?id='+id),
-    DeclineFreiendRequest:(id:Number)=>requests.post('Friends/AcceptFriendRequest',id),
+    AcceptFriendRequest:(id:Number)=>requests.post('Friends/AcceptFriendRequest?id='+id,{}),
+    DeclineFreiendRequest:(id:Number)=>requests.post('Friends/DeclineRequest?id='+id,{}),
 
 }
 export { UserAPI, FriendAPI }

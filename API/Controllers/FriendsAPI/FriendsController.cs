@@ -21,14 +21,14 @@ namespace API.Controllers.FriendsAPI
         {
             return true;
         }
-        [Route("/Friends/AcceptFriendRequest"), HttpGet]
+        [Route("/Friends/AcceptFriendRequest"), HttpPost]
         public async Task<IActionResult> AcceptFriendRequest([FromQuery]int id)
         {
             await friendServices.AcceptFriendRequest(id);
             return Ok();
         }
         [Route("/Friends/DeclineRequest"), HttpPost]
-        public async Task<IActionResult> DeclineRequest(int id)
+        public async Task<IActionResult> DeclineRequest([FromQuery] int id)
         {
             await friendServices.DeclineRequest(id);
             return Ok();
@@ -45,9 +45,11 @@ namespace API.Controllers.FriendsAPI
             return Data;
         }
 
-        public Task<IActionResult> GetFriends(string Email)
+        [HttpGet,Route("/Friends/GetFriends")]
+        public async Task<List<FriendModel>> GetFriends([FromQuery]string Email)
         {
-            throw new NotImplementedException();
+          return await friendServices.GetFriends(Email);
+;
         }
         [Route("/Friends/SendFriendRequest"), HttpPost]
         public async Task<string> SendFriendRequest([FromQuery] string SentToEmail, [FromQuery] string FromUser)

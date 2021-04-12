@@ -26,7 +26,6 @@ export const FrontPage = () => {
 
   useEffect(() => {
     const createHubConnection = async () => {
-      // Build new Hub Connection, url is currently hard coded.
       const hubConnect = new HubConnectionBuilder().withUrl(data.HubUrl).build()
       try {
         await hubConnect.start()
@@ -67,13 +66,23 @@ export const FrontPage = () => {
     HubConnection!.invoke('SendRequestNotfication', Email)
   }
   function handleAcceptFriendRequest (requestID: number) {
-    FriendAPI.AcceptFriendRequest(requestID).then(()=>{
+    FriendAPI.AcceptFriendRequest(requestID).then(() => {
+      FriendAPI.GetAllFriendRequests(
+        SessionHelper.GetVerable(SessionVariabels.Email)!
+      ).then(response => {
+        setFriendsRequets([...response])
+      })
 
     })
   }
   function handleDeclineFriendRequest (requestID: number) {
-    FriendAPI.DeclineFreiendRequest(requestID).then(()=>{
-      
+    console.log(requestID)
+    FriendAPI.DeclineFreiendRequest(requestID).then(() => {
+      FriendAPI.GetAllFriendRequests(
+        SessionHelper.GetVerable(SessionVariabels.Email)!
+      ).then(response => {
+        setFriendsRequets([...response])
+      })
     })
   }
   return (

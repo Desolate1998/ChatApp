@@ -41,7 +41,8 @@ export const ViewFriendRequestsModel: React.FC<IProps> = ({
         Close
       </Button>
       <List>
-        {requests?.map(item => {
+        {
+        requests?.map(item => {
           return (
             <ListItem className='FriendRequestItemContainer'>
               <ListItemAvatar>
