@@ -44,7 +44,7 @@ namespace api
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .WithExposedHeaders("WWW-Authenticate")
-                        .WithOrigins("http://10.0.0.12:3000")
+                        .WithOrigins("http://localhost:3000")
                         .AllowCredentials();
                 });
             });

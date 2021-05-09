@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Person from '@material-ui/icons/Person'
 import Menu from '@material-ui/core/Menu'
 import './Navbar.css'
 import { Button, Drawer, IconButton, MenuItem, Select } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
-import { HubConnectionBuilder } from '@microsoft/signalr'
-
 
 interface IProps {
   AddFriendOnClick: Function
-  ViewFriendRequestsOnClick:Function
+  ViewFriendRequestsOnClick: Function
+  ViewFriendsOnClick: Function
 }
 
-export const NavBar: React.FC<IProps> = ({ AddFriendOnClick,ViewFriendRequestsOnClick }) => {
+export const NavBar: React.FC<IProps> = ({
+  AddFriendOnClick,
+  ViewFriendRequestsOnClick,
+  ViewFriendsOnClick
+}) => {
   const [DrawerOpen, setDrawer] = useState(false)
 
   function HandleDrawer () {
@@ -24,7 +24,6 @@ export const NavBar: React.FC<IProps> = ({ AddFriendOnClick,ViewFriendRequestsOn
   }
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -40,7 +39,7 @@ export const NavBar: React.FC<IProps> = ({ AddFriendOnClick,ViewFriendRequestsOn
           <IconButton onClick={HandleDrawer}>
             <AccountCircleIcon />
           </IconButton>
-   
+
           <Drawer open={DrawerOpen} variant='temporary' className='Menu-Drawer'>
             <Button aria-controls='simple-menu' aria-haspopup='true'>
               Profile Settings
@@ -80,6 +79,7 @@ export const NavBar: React.FC<IProps> = ({ AddFriendOnClick,ViewFriendRequestsOn
                 onClick={() => {
                   handleClose()
                   HandleDrawer()
+                  ViewFriendsOnClick()
                 }}
               >
                 view Friends

@@ -83,4 +83,3 @@ D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Application.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Application.pdb
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Castle.Core.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
-D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Owin.dll

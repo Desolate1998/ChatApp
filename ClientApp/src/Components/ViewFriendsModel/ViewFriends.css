@@ -1,0 +1,9 @@
+.ViewFriendsContainer .ViewFriendsHeading{
+    color: var(--SecondaryFontColor) !important;
+    text-align: center;
+
+}
+.ViewFriendsContainer .FriendsBoxContainer {
+    max-height: 300px;
+    overflow-y: scroll;
+}

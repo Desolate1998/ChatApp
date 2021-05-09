@@ -1,4 +1,5 @@
 ﻿using Domain.CommonUseModels;
+using Domain.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Application.Friends
         Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task DeclineRequest(int id);
+        Task<List<Messages>> GetChatMessages(GetMessagesModel Data);
     }
 }

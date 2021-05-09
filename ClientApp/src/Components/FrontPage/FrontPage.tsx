@@ -15,11 +15,14 @@ import { Notfications } from '../../infrastructure/HelperScripts/Notifications'
 import { ViewFriendRequestsModel } from './../ViewFriendRequestModel/ViewFriendRequestsModel'
 import { IFriendRequest } from './../../infrastructure/Models/FriendRequest'
 import { FriendAPI } from '../../API/Agent'
+import { ViewFriendsModel } from './../ViewFriendsModel/ViewFriendsModel'
 
 export const FrontPage = () => {
+  const [ActiveChat, setActiveChat] = useState<any[]>([])
   const [HubConnection, setHubConnection] = useState<HubConnection | null>(null)
   const [AddfriendOpen, setAddFriendOpen] = useState<boolean>(false)
   const [friendRequests, setFriendsRequets] = useState<IFriendRequest[]>([])
+  const [ViewFriends, setViewFriends] = useState<boolean>(false)
   const [ViewFriendRequestOpen, setViewFriendRequestOpen] = useState<boolean>(
     false
   )
@@ -33,6 +36,7 @@ export const FrontPage = () => {
           'SetClientConnectionID',
           SessionHelper.GetVerable(SessionVariabels.Email)
         )
+        
         hubConnect.on('Notfication', Message => {
           Notfications.info('New Request', 'You have a new friend request!')
         })
@@ -72,7 +76,6 @@ export const FrontPage = () => {
       ).then(response => {
         setFriendsRequets([...response])
       })
-
     })
   }
   function handleDeclineFriendRequest (requestID: number) {
@@ -85,6 +88,10 @@ export const FrontPage = () => {
       })
     })
   }
+  function handleViewFriendsOnClick () {
+    setViewFriends(!ViewFriends)
+  }
+
   return (
     <div className='Front-Page-Container'>
       <AddFriendModel
@@ -99,10 +106,11 @@ export const FrontPage = () => {
         handleClose={HandleFriendRequestOpen}
         requests={friendRequests}
       />
-
+      <ViewFriendsModel open={ViewFriends} />
       <NavBar
         AddFriendOnClick={handleAddFriendOnclick}
         ViewFriendRequestsOnClick={HandleFriendRequestOpen}
+        ViewFriendsOnClick={handleViewFriendsOnClick}
       />
       <div className='Content-Container'>
         <div className='ChatsHistory'>
@@ -118,25 +126,8 @@ export const FrontPage = () => {
         </div>
         <div className='Chat'>
           <div className='chatTextArea'>
-            <Message
-              Sender
-              Name='Ruan'
-              Message={`Lorem Ipsum is simply
-              
-              
-              dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-              since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived no
-              t only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960
-              s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus Page
-              Maker including versions of Lorem Ipsum`}
-            />
-            <Message
-              Sender={false}
-              Name='Ruan'
-              Message="Lorem Ipsum is si
-              
-              mply dummy text of the printing  😂 and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
-            />
+            
+            
           </div>
           <textarea className='Text-Input'></textarea>
           <br />

@@ -1,5 +1,6 @@
 ﻿using Application.Friends;
 using Domain.CommonUseModels;
+using Domain.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,11 @@ namespace API.Controllers.FriendsAPI
         public async Task<string> SendFriendRequest([FromQuery] string SentToEmail, [FromQuery] string FromUser)
         {
             return await friendServices.SendFriendRequest(SentToEmail, FromUser);
+        }
+        [Route("/Friends/GetChatMessages"), HttpPost]
+        public async Task<List<Messages>> GetChatMessages([FromBody]GetMessagesModel Data)
+        {
+            return await friendServices.GetChatMessages(Data);
         }
     }
 }

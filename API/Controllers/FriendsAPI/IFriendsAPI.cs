@@ -1,4 +1,5 @@
 ﻿using Domain.CommonUseModels;
+using Domain.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace API.Controllers.FriendsAPI
         Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task<IActionResult> DeclineRequest(int id);
+        Task<List<Messages>> GetChatMessages(GetMessagesModel Data);
     }
 }
