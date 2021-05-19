@@ -10,25 +10,21 @@ namespace API.Controllers.FriendsAPI
 {
     public class FriendsController : Controller, IFriendsAPI
     {
-        private IFriendServices friendServices;
+        private readonly IFriendServices friendServices;
 
         public FriendsController(IFriendServices friendServices)
         {
             this.friendServices = friendServices;
         }
 
-        [Route("/Test")]
-        public bool Test()
-        {
-            return true;
-        }
-        [Route("/Friends/AcceptFriendRequest"), HttpPost]
-        public async Task<IActionResult> AcceptFriendRequest([FromQuery]int id)
+
+        [HttpPost("/Friends/AcceptFriendRequest"),]
+        public async Task<IActionResult> AcceptFriendRequest([FromQuery] int id)
         {
             await friendServices.AcceptFriendRequest(id);
             return Ok();
         }
-        [Route("/Friends/DeclineRequest"), HttpPost]
+        [HttpPost("/Friends/DeclineRequest"),]
         public async Task<IActionResult> DeclineRequest([FromQuery] int id)
         {
             await friendServices.DeclineRequest(id);
@@ -39,28 +35,40 @@ namespace API.Controllers.FriendsAPI
         {
             throw new NotImplementedException();
         }
-        [Route("/Friends/GetAllRequests"), HttpGet]
+        [HttpGet("/Friends/GetAllRequests"),]
         public async Task<List<FriendRequestsModel>> GetAllRequests([FromQuery] string Email)
         {
             List<FriendRequestsModel> Data = await friendServices.GetAllRequests(Email);
             return Data;
         }
 
-        [HttpGet,Route("/Friends/GetFriends")]
-        public async Task<List<FriendModel>> GetFriends([FromQuery]string Email)
-        {
-          return await friendServices.GetFriends(Email);
-;
-        }
-        [Route("/Friends/SendFriendRequest"), HttpPost]
+   
+
+        [HttpPost("/Friends/SendFriendRequest")]
         public async Task<string> SendFriendRequest([FromQuery] string SentToEmail, [FromQuery] string FromUser)
         {
             return await friendServices.SendFriendRequest(SentToEmail, FromUser);
         }
-        [Route("/Friends/GetChatMessages"), HttpPost]
-        public async Task<List<Messages>> GetChatMessages([FromBody]GetMessagesModel Data)
+        [HttpGet("/Friends/GetChatMessages")]
+        public async Task<List<Messages>> GetChatMessages([FromQuery] int StartIndex, [FromQuery] int ChatId)
         {
-            return await friendServices.GetChatMessages(Data);
+
+            return await friendServices.GetChatMessages(StartIndex, ChatId);
+        }
+        [HttpGet("/Friends/GetActiveChats")]
+        public async Task<List<UserChatDisplay>> GetActiveChats([FromQuery] string Email)
+        {
+            return await friendServices.GetActiveChats(Email);
+        }
+        [HttpGet("/Friends/GetFriends")]
+        public async Task<List<UserChatDisplay>> GetFriends([FromQuery] string Email)
+        {
+            return await friendServices.GetFriends(Email);
+        }
+        [HttpGet("/Friends/GetNewActiveChatMessages")]
+        public async Task<List<Messages>> GetNewActiveChatMessages([FromQuery] int ChatId, [FromQuery] string Email)
+        {
+            return await friendServices.setChatActive(ChatId, Email);
         }
     }
 }

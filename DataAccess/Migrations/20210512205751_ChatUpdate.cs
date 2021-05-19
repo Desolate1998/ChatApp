@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistent.Migrations
 {
-    public partial class MessagesTables1 : Migration
+    public partial class ChatUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,51 +48,25 @@ namespace Persistent.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActiveChats",
+                name: "Chats",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    SecondUserId = table.Column<int>(type: "int", nullable: false)
+                    UserA = table.Column<int>(type: "int", nullable: false),
+                    UserB = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActiveChats", x => x.Id);
+                    table.PrimaryKey("PK_Chats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ActiveChats_Users_SecondUserId",
-                        column: x => x.SecondUserId,
+                        name: "FK_Chats_Users_UserA",
+                        column: x => x.UserA,
                         principalTable: "Users",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_ActiveChats_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FriendRequests",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FromUserId = table.Column<int>(type: "int", nullable: false),
-                    ToUserId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FriendRequests", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_FriendRequests_Users_FromUserId",
-                        column: x => x.FromUserId,
-                        principalTable: "Users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FriendRequests_Users_ToUserId",
-                        column: x => x.ToUserId,
+                        name: "FK_Chats_Users_UserB",
+                        column: x => x.UserB,
                         principalTable: "Users",
                         principalColumn: "id");
                 });
@@ -119,6 +93,63 @@ namespace Persistent.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ActiveChats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ChatId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActiveChats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActiveChats_Chats_ChatId",
+                        column: x => x.ChatId,
+                        principalTable: "Chats",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ActiveChats_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FriendRequests",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromUserId = table.Column<int>(type: "int", nullable: false),
+                    ToUserId = table.Column<int>(type: "int", nullable: false),
+                    ChatId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FriendRequests", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Chats_ChatId",
+                        column: x => x.ChatId,
+                        principalTable: "Chats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Users_FromUserId",
+                        column: x => x.FromUserId,
+                        principalTable: "Users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Users_ToUserId",
+                        column: x => x.ToUserId,
+                        principalTable: "Users",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Messanges",
                 columns: table => new
                 {
@@ -126,42 +157,57 @@ namespace Persistent.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChatId = table.Column<int>(type: "int", nullable: false),
-                    FromUserId = table.Column<int>(type: "int", nullable: false),
-                    ToUserId = table.Column<int>(type: "int", nullable: false),
-                    Read = table.Column<bool>(type: "bit", nullable: false),
-                    TimeSent = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeRead = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Delevered = table.Column<bool>(type: "bit", nullable: false)
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    TimeSent = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimeRead = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ChatsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messanges", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messanges_ActiveChats_ChatId",
+                        name: "FK_Messanges_Chats_ChatId",
                         column: x => x.ChatId,
-                        principalTable: "ActiveChats",
+                        principalTable: "Chats",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Messanges_Users_FromUserId",
-                        column: x => x.FromUserId,
-                        principalTable: "Users",
-                        principalColumn: "id");
+                        name: "FK_Messanges_Chats_ChatsId",
+                        column: x => x.ChatsId,
+                        principalTable: "Chats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Messanges_Users_ToUserId",
-                        column: x => x.ToUserId,
+                        name: "FK_Messanges_Users_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "Users",
                         principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActiveChats_SecondUserId",
+                name: "IX_ActiveChats_ChatId",
                 table: "ActiveChats",
-                column: "SecondUserId");
+                column: "ChatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActiveChats_UserId",
                 table: "ActiveChats",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_UserA",
+                table: "Chats",
+                column: "UserA");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_UserB",
+                table: "Chats",
+                column: "UserB");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FriendRequests_ChatId",
+                table: "FriendRequests",
+                column: "ChatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FriendRequests_FromUserId",
@@ -179,14 +225,14 @@ namespace Persistent.Migrations
                 column: "ChatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messanges_FromUserId",
+                name: "IX_Messanges_ChatsId",
                 table: "Messanges",
-                column: "FromUserId");
+                column: "ChatsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messanges_ToUserId",
+                name: "IX_Messanges_SenderId",
                 table: "Messanges",
-                column: "ToUserId");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserConnections_Userid",
@@ -204,6 +250,9 @@ namespace Persistent.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActiveChats");
+
+            migrationBuilder.DropTable(
                 name: "FriendRequests");
 
             migrationBuilder.DropTable(
@@ -213,7 +262,7 @@ namespace Persistent.Migrations
                 name: "UserConnections");
 
             migrationBuilder.DropTable(
-                name: "ActiveChats");
+                name: "Chats");
 
             migrationBuilder.DropTable(
                 name: "Users");

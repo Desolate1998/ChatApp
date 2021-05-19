@@ -1,4 +1,5 @@
-﻿using Domain.Enumeration;
+﻿using Domain.DatabaseModels;
+using Domain.Enumeration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,10 +16,12 @@ namespace Domain
         public int FromUserId { get; set; }
 
         public int ToUserId { get; set; }
-      
+
+        public int? ChatId { get; set; }
+
         public FriendStatus Status { get; set; }
         public virtual User ToUser { get; set; }
-
+        public virtual Chats Chat { get; set; }
         public virtual User FromUser { get; set; }
     }
 }

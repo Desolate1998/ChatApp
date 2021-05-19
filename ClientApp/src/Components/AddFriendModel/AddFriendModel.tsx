@@ -8,7 +8,8 @@ import {
 } from '../../infrastructure/HelperScripts/SessionHelper'
 import './AddFriendStyle.css'
 import { Notfications } from './../../infrastructure/HelperScripts/Notifications'
-import { ISendFriendReequestModel } from './../../infrastructure/Models/SendFriendRequestModel'
+import { ISendFriendRequestModel } from '../../infrastructure/Models/SendFriendRequestModel'
+
 
 interface IProps {
   open: any
@@ -24,7 +25,7 @@ export const AddFriendModel: React.FC<IProps> = ({
   const [Email, setEmail] = useState<string>('')
 
   function handleOnSubmit () {
-    let Data: ISendFriendReequestModel = {
+    let Data: ISendFriendRequestModel = {
       FromUser: SessionHelper.GetVerable(SessionVariabels.Email)!,
       SentToEmail: Email
     }

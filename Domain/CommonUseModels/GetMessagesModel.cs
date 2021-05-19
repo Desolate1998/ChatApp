@@ -8,5 +8,6 @@ namespace Domain.CommonUseModels
     {
         public int StartIndex { get; set; }
         public int ChatId { get; set; }
+        public string Email { get; set; }
     }
 }

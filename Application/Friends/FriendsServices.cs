@@ -21,8 +21,8 @@ namespace Application.Friends
 
         public async Task AcceptFriendRequest(int id)
         {
+
             FriendRequest request = await dbContext.FriendRequests.FirstOrDefaultAsync(x => x.id == id);
-            request.Status = FriendStatus.Friends;
             Chats chat = await dbContext.Chats
                 .Where(x =>
                       (x.UserA == request.FromUserId && x.UserB == request.ToUserId) ||
@@ -31,12 +31,19 @@ namespace Application.Friends
 
             if (chat == null)
             {
-                dbContext.Chats.Add(new Chats()
+                Chats newChat = new Chats()
                 {
                     UserA = request.FromUserId,
                     UserB = request.ToUserId
-                });
+                };
+                dbContext.Chats.Add(newChat);
+                request.Chat = newChat;
             }
+            else
+            {
+                request.Chat = chat;
+            }
+            request.Status = FriendStatus.Friends;
             dbContext.SaveChanges();
 
         }
@@ -69,13 +76,6 @@ namespace Application.Friends
                  ).ToListAsync();
         }
 
-        public async Task<List<FriendModel>> GetFriends(string Email)
-        {
-            User user = await dbContext.Users
-                             .FirstOrDefaultAsync(x => x.Email == Email);    
-            return user.Friends.ToList();
-
-        }
 
         public async Task<string> SendFriendRequest(string SentToEmail, string FromUser)
         {
@@ -98,29 +98,102 @@ namespace Application.Friends
 
                 await dbContext.FriendRequests.AddAsync(new FriendRequest()
                 {
-                    FromUser = RequestingUser,
-                    ToUser = SendToUser,
-                    Status = FriendStatus.PendingAccept
+                    FromUserId = RequestingUser.id,
+                    ToUserId = SendToUser.id,
+                    Status = FriendStatus.PendingAccept,
+
 
                 });
+                try
+                {
+                    await dbContext.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
 
-                await dbContext.SaveChangesAsync();
+                    throw;
+                }
+
                 return "202";
             }
             return "404";
         }
 
-
-        public async Task<List<Messages>> GetChatMessages(GetMessagesModel Data)
+        public async Task<List<UserChatDisplay>> GetFriends(string Email)
         {
+            User user = await dbContext.Users
+                             .FirstOrDefaultAsync(x => x.Email == Email);
+            List<UserChatDisplay> ReturnData = user.Friends.ToList().Select(x => string.IsNullOrEmpty(x.DisplayName) ? new UserChatDisplay()
+            {
+                ChatId = x.ChatId,
+                DisplayName = x.Email
+            } : new UserChatDisplay()
+            {
+                ChatId = x.ChatId,
+                DisplayName = x.DisplayName
+            }).ToList();
 
-            return await (from M in dbContext.Messanges
-                          where M.ChatId == Data.ChatId
-                          select M
-                          ).Skip(Data.StartIndex).Take(50).ToListAsync();
+            return ReturnData;
+        }
+        public async Task<List<UserChatDisplay>> GetActiveChats(string Email)
+        {
+            try
+            {
+
+                List<ActiveChats> ActiveChats = await dbContext.ActiveChats.Where(x => x.User.Email == Email).ToListAsync();
+                List<UserChatDisplay> ReturnData = new List<UserChatDisplay>();
+
+
+                foreach (ActiveChats item in ActiveChats)
+                {
+                    Chats chat = await dbContext.Chats.SingleOrDefaultAsync(x => x.Id == item.ChatId);
+                    if (chat._UserA.Email == Email)
+                    {
+                        ReturnData.Add(new UserChatDisplay()
+                        {
+                            DisplayName = string.IsNullOrEmpty(chat._UserB.DisplayName) ? chat._UserB.Email : chat._UserB.DisplayName,
+                            ChatId = item.ChatId
+                        });
+                    }
+                    else
+                    {
+                        ReturnData.Add(new UserChatDisplay()
+                        {
+                            DisplayName = string.IsNullOrEmpty(chat._UserA.DisplayName) ? chat._UserB.Email : chat._UserA.DisplayName,
+                            ChatId = item.ChatId
+                        });
+                    }
+                }
+                return ReturnData;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
 
+        public async Task<List<Messages>> setChatActive(int ChatId, string Email)
+        {
+            User user = await dbContext.GetUserFromEmail(Email);
+            await dbContext.ActiveChats.AddAsync(new ActiveChats()
+            {
+                ChatId = ChatId,
+                UserId = user.id
+            });
+            dbContext.SaveChanges();
+            return await GetChatMessages(0, ChatId);
+        }
+
+        public async Task<List<Messages>> GetChatMessages(int StartIndex, int ChatId)
+        {
+            return await (from M in dbContext.Messanges
+                          where M.ChatId == ChatId
+                          select M
+                          ).Skip(StartIndex).Take(50).ToListAsync();
+        }
 
 
     }

@@ -1,4 +1,4 @@
-export  interface ISendFriendReequestModel{
+export  interface ISendFriendRequestModel{
     SentToEmail:string;
     FromUser:string;
 }

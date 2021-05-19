@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Persistent.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210420195147_MessagesTables1")]
-    partial class MessagesTables1
+    [Migration("20210514202845_ChatIdNullAble")]
+    partial class ChatIdNullAble
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace Persistent.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SecondUserId")
+                    b.Property<int>("ChatId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -36,11 +36,33 @@ namespace Persistent.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SecondUserId");
+                    b.HasIndex("ChatId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("ActiveChats");
+                });
+
+            modelBuilder.Entity("Domain.DatabaseModels.Chats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("UserA")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserB")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserA");
+
+                    b.HasIndex("UserB");
+
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("Domain.DatabaseModels.Messages", b =>
@@ -53,34 +75,31 @@ namespace Persistent.Migrations
                     b.Property<int>("ChatId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Delevered")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("FromUserId")
+                    b.Property<int?>("ChatsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Read")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("TimeRead")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("TimeSent")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ToUserId")
+                    b.Property<int>("SenderId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("TimeRead")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TimeSent")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ChatId");
 
-                    b.HasIndex("FromUserId");
+                    b.HasIndex("ChatsId");
 
-                    b.HasIndex("ToUserId");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messanges");
                 });
@@ -115,6 +134,9 @@ namespace Persistent.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FromUserId")
                         .HasColumnType("int");
 
@@ -125,6 +147,8 @@ namespace Persistent.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("ChatId");
 
                     b.HasIndex("FromUserId");
 
@@ -200,9 +224,9 @@ namespace Persistent.Migrations
 
             modelBuilder.Entity("Domain.DatabaseModels.ActiveChats", b =>
                 {
-                    b.HasOne("Domain.User", "SecondUser")
+                    b.HasOne("Domain.DatabaseModels.Chats", "ActiveChat")
                         .WithMany()
-                        .HasForeignKey("SecondUserId")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -212,36 +236,51 @@ namespace Persistent.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("SecondUser");
+                    b.Navigation("ActiveChat");
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.DatabaseModels.Chats", b =>
+                {
+                    b.HasOne("Domain.User", "_UserA")
+                        .WithMany()
+                        .HasForeignKey("UserA")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.User", "_UserB")
+                        .WithMany()
+                        .HasForeignKey("UserB")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("_UserA");
+
+                    b.Navigation("_UserB");
+                });
+
             modelBuilder.Entity("Domain.DatabaseModels.Messages", b =>
                 {
-                    b.HasOne("Domain.DatabaseModels.ActiveChats", "Chat")
+                    b.HasOne("Domain.DatabaseModels.Chats", "Chat")
                         .WithMany()
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Domain.User", "FromUser")
+                    b.HasOne("Domain.DatabaseModels.Chats", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatsId");
+
+                    b.HasOne("Domain.User", "_SenderId")
                         .WithMany()
-                        .HasForeignKey("FromUserId")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Domain.User", "ToUser")
-                        .WithMany()
-                        .HasForeignKey("ToUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Navigation("_SenderId");
 
                     b.Navigation("Chat");
-
-                    b.Navigation("FromUser");
-
-                    b.Navigation("ToUser");
                 });
 
             modelBuilder.Entity("Domain.DatabaseModels.UserConnections", b =>
@@ -257,6 +296,10 @@ namespace Persistent.Migrations
 
             modelBuilder.Entity("Domain.FriendRequest", b =>
                 {
+                    b.HasOne("Domain.DatabaseModels.Chats", "Chat")
+                        .WithMany()
+                        .HasForeignKey("ChatId");
+
                     b.HasOne("Domain.User", "FromUser")
                         .WithMany("SentFriendRequets")
                         .HasForeignKey("FromUserId")
@@ -268,6 +311,8 @@ namespace Persistent.Migrations
                         .HasForeignKey("ToUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Chat");
 
                     b.Navigation("FromUser");
 
@@ -281,6 +326,11 @@ namespace Persistent.Migrations
                         .HasForeignKey("Domain.User", "Genderid");
 
                     b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("Domain.DatabaseModels.Chats", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("Domain.User", b =>

@@ -1,6 +1,8 @@
 ﻿using Domain;
 using Domain.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccess
 {
@@ -68,6 +70,12 @@ namespace DataAccess
                 ent.HasOne(x => x._SenderId).WithMany().HasForeignKey(x => x.SenderId).OnDelete(DeleteBehavior.NoAction);
 
             });
+            modelBuilder.Entity<ActiveChats>(ent =>
+            {
+                ent.HasKey(x => x.Id);
+                ent.HasOne(x => x.ActiveChat).WithMany().HasForeignKey(x => x.ChatId).OnDelete(DeleteBehavior.NoAction);
+                ent.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.NoAction);
+            });
         }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<User> Users { get; set; }
@@ -76,6 +84,11 @@ namespace DataAccess
         public DbSet<UserConnections> UserConnections { get; set; }
         public DbSet<Chats> Chats { get; set; }
         public DbSet<Messages> Messanges { get; set; }
+        public DbSet<ActiveChats>ActiveChats { get; set; }
+        public  async Task<User> GetUserFromEmail(string Email)
+        {
+            return await Users.Where(x => x.Email == Email).SingleOrDefaultAsync();
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 export interface IGetMessageModel {
-  startIndex: number
-  chatId: number
+  startIndex: number;
+  friendID: number;
+  email:string;
 }

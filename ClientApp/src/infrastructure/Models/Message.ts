@@ -1,3 +1,4 @@
+import { MessageType } from "@microsoft/signalr";
 import { MessageStatus } from "../Enumeration/MessageStatus";
 
 export interface IMessage{
@@ -8,6 +9,5 @@ export interface IMessage{
     timeSent:any;
     timeRead:any;
     status:MessageStatus;
-
-
+    messageType:MessageType;
 }

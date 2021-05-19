@@ -50,7 +50,8 @@ namespace Domain
                                                     {
                                                         DisplayName = SF.ToUser.DisplayName,
                                                         Email = SF.ToUser.Email,
-                                                        id = SF.ToUser.id
+                                                        id = SF.ToUser.id,
+                                                        ChatId = SF.ChatId
                                                     }).ToList();
 
                 friends.AddRange(from SF in RecivedFriendRequests
@@ -58,7 +59,8 @@ namespace Domain
                                  {
                                      DisplayName = SF.FromUser.DisplayName,
                                      Email = SF.FromUser.Email,
-                                     id = SF.FromUser.id
+                                     id = SF.FromUser.id,
+                                     ChatId = SF.ChatId
                                  });
 
                 return friends;
