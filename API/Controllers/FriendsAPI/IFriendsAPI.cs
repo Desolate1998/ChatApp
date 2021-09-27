@@ -13,11 +13,12 @@ namespace API.Controllers.FriendsAPI
         Task<string> SendFriendRequest(string SentToEmail, string FromUser);
         Task<IActionResult> AcceptFriendRequest(int id);
         Task<IActionResult> DeleteFriend(string DeleteingEmail, string Email);
-        Task<List<UserChatDisplay>> GetFriends(string Email);
+        Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task<IActionResult> DeclineRequest(int id);
         Task<List<Messages>> GetChatMessages(int StartIndex, int ChatId);
         Task<List<UserChatDisplay>> GetActiveChats(string Email);
         Task<List<Messages>> GetNewActiveChatMessages(int ChatId, string Email);
+        Task SendMessage(SendMessageModel Data);
     }
 }

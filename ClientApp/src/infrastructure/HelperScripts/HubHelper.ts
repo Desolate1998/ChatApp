@@ -1,11 +1,28 @@
-import * as signalR from "@microsoft/signalr";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import * as data from '../../Config.json'
- class  HubHelper {
-    Connection:signalR.HubConnection;
-    constructor() {
-       this.Connection = new signalR.HubConnectionBuilder().withUrl(data.HubUrl).build();
-    
-        
-    } 
+
+const connection = new HubConnectionBuilder()
+    .withUrl(data.HubUrl)
+    .build();
+
+async function start() {
+    try {
+        await connection.start();
+
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
+
+connection.onclose(start);
+
+function GetNewMessage(callBack:Function){
+   connection.on('NewMessage',(m)=>{
+      callBack(m)
+   })
 }
-export {HubHelper}
+
+start();
+export{connection,GetNewMessage}

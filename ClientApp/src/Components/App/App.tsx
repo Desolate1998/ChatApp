@@ -4,21 +4,16 @@ import './App.css'
 import { Login } from './../Login/Login'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import 'react-notifications-component/dist/theme.css'
-import {
-  SessionHelper,
-  SessionVariabels
-} from '../../infrastructure/HelperScripts/SessionHelper'
 import { SignUp } from '../SignUp/SignUp'
 import './Themes.css'
 import ReactNotification from 'react-notifications-component'
-import { FrontPage } from '../FrontPage/FrontPage'
-import { HubHelper } from '../../infrastructure/HelperScripts/HubHelper'
+import Home  from './../Home/Home';
+import { observer } from 'mobx-react-lite'
 
-export const App = () => {
+
+function App(){
   const [LogedIn, setLogedIn] = useState<boolean>(false);
-  
   if (!LogedIn) {
-  
     return (
       <Router>
         <ReactNotification />
@@ -39,10 +34,11 @@ export const App = () => {
           <ReactNotification />
           <Switch>
             <Route exact path='/'>
-              <FrontPage  />
+              <Home  />
             </Route>
           </Switch>
         </Router>
       </div>
     )
 }
+export default observer(App)

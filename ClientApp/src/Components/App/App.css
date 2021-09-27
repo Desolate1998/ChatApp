@@ -1,81 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap');
 
 body {
-    background-color: var(--Body);
-    overflow-y: hidden;
+  background-color: var(--Body);
+  overflow-y: hidden;
 }
 
 * {
-    transition: .5s;
-    color: var(--FontColor);
-    font-family: 'Noto Sans JP', sans-serif;
+  transition: .5s;
+ 
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.MuiInputLabel-formControl {
+  color: #2196F3 !important;
+
+}
+.MuiInputBase-input{
+  color: #6096ba !important;
+}
+.MuiInput-underline:before{
+  border-bottom: 1px solid #2196F3 !important;
   
 }
-
-h1 {
-    color: var(--FontColor);
+.Mui-focused{
+  color: #2196F3 !important;
 }
-.MuiTextField-root{
-    margin-bottom: 10px !important;
-}
-
-.MUI-Input label {
-    color: var(--SecondaryFontColor) !important;
-}
-
-.MUI-Input  input {
-    color: var(--FontColor) !important;
-}
-.MuiButton-label{
-    color:var(--SecondaryFontColor) !important;
- 
- }
- .MuiButton-outlined{
-    border:1px solid var(--SecondaryFontColor) !important;
-
-}
-.Containedgreen{
-    background-color: var(--SecondaryFontColor) !important;
-    
-}
-.Containedgreen .MuiButton-label{
-    color: black !important;
-
-}
-.Containedgreen:hover{
-    background-color: rgb(27, 155, 84);
+.MuiAccordion-root{
+  color: #6096ba !important;
+  background-color: #081724 !important;
 }
 ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-  ::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1aea6a;
-    border: 0px solid #f00000;
-    border-radius: 50px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #1aea6a;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #1aea6a;
-  }
-  ::-webkit-scrollbar-track {
-    background: #454545;
-    border: 0px solid #ffffff;
-    border-radius: 100px;
-  }
-  ::-webkit-scrollbar-track:hover {
-    background: #454545;
-  }
-  ::-webkit-scrollbar-track:active {
-    background: #454545;
-  }
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-  
+  width: 5px;
+  height: 5px;
+ }
+ ::-webkit-scrollbar-thumb {
+  background: #389de0;
+  border-radius: 4px;
+ }
+ ::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(13deg, #c7ceff 14%,#1794e8 64%);
+ }
+ ::-webkit-scrollbar-track{
+  background: #ffffff;
+  border-radius: 1px;
+  box-shadow: inset 7px 10px 12px #f0f0f0;
+ }

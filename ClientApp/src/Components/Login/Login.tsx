@@ -13,6 +13,7 @@ import { IEmailAndPassword } from './../../infrastructure/Models/EmailAndPasswor
 import { UserAPI } from '../../API/Agent'
 import { SessionHelper, SessionVariabels } from '../../infrastructure/HelperScripts/SessionHelper'
 import { useHistory } from "react-router-dom"
+import { useStore } from '../../Stores/store'
 
 interface IProps{
   logedIn:Function
@@ -21,7 +22,8 @@ export const Login:React.FC<IProps> = ({logedIn}) => {
   const history = useHistory();
   const [Email, setEmail] = useState<string>('');
   const [Password, setPassword] = useState<string>('');
-
+  const {chatStore} = useStore();
+  
   async function HandleSubmit(){
     if(Email!==''&& Password !== ''){
       let Data:IEmailAndPassword ={
@@ -30,9 +32,11 @@ export const Login:React.FC<IProps> = ({logedIn}) => {
       }
       try {
        await UserAPI.Login(Data).then((Response)=>{
-         if(Response ===true){
+         if(typeof(Response) ==='number'){
             SessionHelper.SetVerable(SessionVariabels.Email,Email);
+            SessionHelper.SetVerable(SessionVariabels.Id,Response.toString());
             history.push("/",{from:'Login'})
+            chatStore.getActiveChats();
             logedIn();
          }else{
           Notfications.Danager('Login Failed','Email or password was inccorect')

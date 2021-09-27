@@ -12,4 +12,4 @@ D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.csproj.C
 D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.dll
 D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.pdb
 D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.genruntimeconfig.cache
-D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.csprojAssemblyReference.cache
+D:\Repos\Personal\ChatApp\DataAccess\obj\Debug\netcoreapp3.1\Persistent.csproj.AssemblyReference.cache

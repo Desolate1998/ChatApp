@@ -43,12 +43,13 @@ namespace Application.Users
         }
 
        
-        public async Task<bool> Login(EmailAndPasswordModel Data)
+        public async Task<int?> Login(EmailAndPasswordModel Data)
         {
             User user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == Data.Email && x.Password == Data.Password);
-            return user != null ? true : false;
+            return user?.id;
         }
 
+       
    
     }
 }

@@ -12,11 +12,12 @@ namespace Application.Friends
         Task<string> SendFriendRequest(string SentToEmail,string FromUser);
         Task  AcceptFriendRequest(int id);
         Task DeleteFriend(string DeleteingEmail, string Email);
-        Task<List<UserChatDisplay>> GetFriends(string Email);
+        Task<List<FriendModel>> GetFriends(string Email);
         Task<List<FriendRequestsModel>> GetAllRequests(string Email);
         Task DeclineRequest(int id);
         Task<List<Messages>> GetChatMessages(int StartIndex, int ChatId);
         Task<List<UserChatDisplay>> GetActiveChats(string Email);
         Task<List<Messages>> setChatActive(int ChatId, string Email);
+        Task SendMessage(SendMessageModel Data);
     }
 }

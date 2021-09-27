@@ -1,0 +1,17 @@
+
+.Message{
+    display: flex;
+    margin-bottom: 20px;
+    color:white;
+}
+.MessageContainer{
+    background-color: #081724;
+    padding: 10px;
+    margin: 5px;
+    max-width: 50%;
+    min-width: 20%;
+}
+
+.TimeStamp{
+    color: rgb(116, 113, 113);
+}

@@ -1,6 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\API",
+    "\\API\\Controllers",
+    "\\API\\Controllers\\FriendsAPI",
+    "\\ClientApp",
+    "\\ClientApp\\src",
+    "\\ClientApp\\src\\API",
+    "\\ClientApp\\src\\Stores"
   ],
+  "SelectedNode": "\\ClientApp\\src\\Stores\\Chats.ts",
   "PreviewInSolutionExplorer": false
 }

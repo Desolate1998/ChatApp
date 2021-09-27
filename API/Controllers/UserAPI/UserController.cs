@@ -22,7 +22,7 @@ namespace api.Controllers
             throw new NotImplementedException();
         }
         [Route("/Users/Login"), HttpPost]
-        public async Task<bool> Login([FromBody]EmailAndPasswordModel Data)
+        public async Task<int?> Login([FromBody]EmailAndPasswordModel Data)
         {
             return await UserServices.Login(Data);
         }

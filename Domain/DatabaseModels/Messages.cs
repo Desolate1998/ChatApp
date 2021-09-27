@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Domain.DatabaseModels
 {
@@ -15,9 +16,9 @@ namespace Domain.DatabaseModels
         public MessageStatus Status { get; set; }
         public DateTime? TimeSent { get; set; }
         public DateTime? TimeRead { get; set; }
-  
+        [JsonIgnore]
         public virtual User _SenderId { get; set; }
-
+        [JsonIgnore]
         public virtual Chats Chat { get; set; }
 
     }

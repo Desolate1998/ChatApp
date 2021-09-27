@@ -63,7 +63,6 @@ D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstanda
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Domain.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Domain.pdb
-D:\Repos\Personal\ChatApp\API\obj\Debug\netcoreapp3.1\api.csprojAssemblyReference.cache
 D:\Repos\Personal\ChatApp\API\obj\Debug\netcoreapp3.1\api.AssemblyInfoInputs.cache
 D:\Repos\Personal\ChatApp\API\obj\Debug\netcoreapp3.1\api.AssemblyInfo.cs
 D:\Repos\Personal\ChatApp\API\obj\Debug\netcoreapp3.1\api.csproj.CoreCompileInputs.cache
@@ -83,3 +82,4 @@ D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Application.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Application.pdb
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Castle.Core.dll
 D:\Repos\Personal\ChatApp\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\Repos\Personal\ChatApp\api\obj\Debug\netcoreapp3.1\API.csproj.AssemblyReference.cache

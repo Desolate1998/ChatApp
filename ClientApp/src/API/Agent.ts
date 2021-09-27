@@ -2,10 +2,12 @@ import axios, { AxiosResponse } from 'axios'
 import { IEmailAndPassword } from '../infrastructure/Models/EmailAndPasswordModel'
 import * as data from '../Config.json'
 import { IFriendRequest } from './../infrastructure/Models/FriendRequest'
-import { IFriend } from '../infrastructure/Models/Friend'
+
 import { IMessage } from '../infrastructure/Models/Message'
 import { ISendFriendRequestModel } from '../infrastructure/Models/SendFriendRequestModel'
 import { IActiveChat } from '../infrastructure/Models/ActiveChats'
+import { ISendMessageModel } from '../infrastructure/Models/SendMessageModel'
+import { IFriend } from './../infrastructure/Models/Friends';
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
@@ -31,8 +33,11 @@ const UserAPI = {
   Register: (Data: IEmailAndPassword) =>
     requests.post<string>('Users/Register', Data),
   Login: (Data: IEmailAndPassword) =>
-    requests.post<boolean>('Users/Login', Data)
+    requests.post<number>('Users/Login', Data)
 }
+
+
+
 
 const FriendAPI = {
   SendFriendRequest: (Data: ISendFriendRequestModel) =>
@@ -47,7 +52,7 @@ const FriendAPI = {
   DeclineFreiendRequest: (id: Number) =>
     requests.post('Friends/DeclineRequest?id=' + id, {}),
   GetFriends: (email: string) =>
-    requests.get<IActiveChat[]>('Friends/GetFriends?Email=' + email),
+    requests.get<IFriend[]>('Friends/GetFriends?Email=' + email),
   GetActiveChats: (email: string) =>
     requests.get<IActiveChat[]>('Friends/GetActiveChats?email=' + email),
   GetChatMessages: (startIndex: number, chatId: number) =>
@@ -57,6 +62,8 @@ const FriendAPI = {
   GetNewActiveChatMessages: (ChatId: number, Email: string) =>
   requests.get<IMessage[]>(
       `Friends/GetNewActiveChatMessages?ChatId=${ChatId}&Email=${Email}`
-    )
+    ),
+    SendMessage: (Data: ISendMessageModel) => requests.post('Friends/SendMessage', Data),
+    StartActiveChat: (Email: string, chatId: number) => requests.post<IMessage[]>(`Friends/StartActiveChat?Email=${Email}&chatId=${chatId}`, {})
 }
 export { UserAPI, FriendAPI }

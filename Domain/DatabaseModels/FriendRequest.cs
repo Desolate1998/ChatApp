@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Domain
 {
@@ -20,8 +21,11 @@ namespace Domain
         public int? ChatId { get; set; }
 
         public FriendStatus Status { get; set; }
+        [JsonIgnore]
         public virtual User ToUser { get; set; }
+        [JsonIgnore]
         public virtual Chats Chat { get; set; }
+        [JsonIgnore]
         public virtual User FromUser { get; set; }
     }
 }

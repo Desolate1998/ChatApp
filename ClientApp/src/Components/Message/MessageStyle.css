@@ -6,14 +6,17 @@
     font-size: small;
     text-size-adjust: 10px;
     box-shadow: var(--Shadow);
-    background-color: var(--Body);
+    background-color: var(--MessageBackgroundColor);
     border-radius: 20px;
+    margin-bottom: 20px;
 
 }
-
+.sent:hover,.Recived:hover{
+    background-color: var(--MessageBackgroundColorHover);
+}
 .sent {
     left: 60%;
-    border: 1px solid var(--Body);
+    border: 1px solid var(--MessageBackgroundColor);
     border-radius: 20px;
     position: relative;
     max-width: 30%;
@@ -23,11 +26,11 @@
     text-size-adjust: 10px;
     font-size: small;
     background-color: var(--Body);
+    margin-bottom: 20px;
 }
 .MassagePre{
     text-overflow: ellipsis; 
     word-break: break-all;
-  
     max-width:100%;
     white-space: pre-wrap;       /* Since CSS 2.1 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */

@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Domain;
+using Domain.CommonUseModels;
 using Domain.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +19,7 @@ namespace Application.ConnectionServices
             this.dbContext = dbContext;
         }
 
-        public async Task<string> GetConnectionID(string Email)
+        public async Task<string> GetConnectionWithEmail(string Email)
         {
             return await (
                 from C in dbContext.UserConnections
@@ -28,6 +29,17 @@ namespace Application.ConnectionServices
                 select C.ConnectionCode).FirstOrDefaultAsync();
 
         }
+        public async Task<string> GetConnectionIdWithId(int id)
+        {
+            return await (
+                from C in dbContext.UserConnections
+                join U in dbContext.Users
+                on C.user equals U
+                where U.id  == id
+                select C.ConnectionCode).FirstOrDefaultAsync();
+
+        }
+
 
         public async Task HandleDisconect(string ConnectionID)
         {
@@ -55,5 +67,21 @@ namespace Application.ConnectionServices
              await dbContext.UserConnections.AddAsync(connections);
             dbContext.SaveChanges();
         }
+
+        public async Task<string> GetReciverConnection(int ChatId, int SenderId)
+        {
+
+            Chats chats = await dbContext.Chats.SingleOrDefaultAsync(x => x.Id == ChatId);
+            int UserId = chats._UserA.id == SenderId ? chats._UserB.id : chats._UserA.id;
+            return await(
+                from C in dbContext.UserConnections
+                join U in dbContext.Users
+                on C.user equals U
+                where U.id == UserId
+                select C.ConnectionCode).FirstOrDefaultAsync();
+        }
     }
-}
+
+
+    }
+

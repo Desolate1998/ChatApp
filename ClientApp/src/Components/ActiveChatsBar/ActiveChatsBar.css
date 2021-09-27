@@ -1,0 +1,18 @@
+.ActiveChatsBar{
+    /* background-color: #2c0e0d; */
+   
+ 
+
+}
+.ProfileAndOptionsContainer{
+    background-color: #000814;
+    padding: 10px;
+
+
+
+}
+.chatContainerOverFlowHandler{
+    max-height: 70vh;
+    overflow-y: scroll;
+    padding-right: 10px;
+}

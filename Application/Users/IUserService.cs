@@ -11,6 +11,6 @@ namespace Application.Users
     public interface IUserService
     {
         public Task<string> Register(EmailAndPasswordModel Data);
-        public Task<bool> Login(EmailAndPasswordModel Data);
+        public Task<int?> Login(EmailAndPasswordModel Data);
     }
 }

@@ -1,36 +1,9 @@
-.chatCard {
-    height: 85px;
-    width: 95%;
-    margin-left: 3%;
-   
-    transition: .4s;
-    background-color: #282b31;
-    margin-bottom: 10px;
-}
-.chatCard:hover{
-   background-color:  rgba(37, 37, 37, 0.19)
-}
-.Photo {
-    float: left;
-    height: 100%;
-    width: 30%;
-    margin-left: 5px;
-}
+.chatCard{
+    margin-bottom: 20px;
 
-.name {
-    font-weight: bold;
-
-}
-
-.MessagePreview {
-
-    overflow: hidden;
-}
-
-.LastMessage {}
-
-.ProfileImage {
-    height: 80%;
-    margin-top: 10%;
-    border-radius: 50%;
+    border-bottom: 1px solid grey;
+    padding: 5px;
+    color: white !important;
+    cursor: pointer;
+    /* box-shadow:0px 0px 1px 2px #2c2c2c */
 }

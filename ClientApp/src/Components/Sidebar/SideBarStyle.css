@@ -1,0 +1,25 @@
+.FriendsMenu {
+    position: absolute;
+    z-index: 2;
+    height: 100vh !important;
+    top: 0px;
+    width: 17%;
+    background-color:#000814 ;
+ 
+  
+    border-right: 2px solid #2196F3;
+    transform: translateX(-100%);
+    transition: .2s;
+
+}
+
+.FriendsMenuActive{
+    transform: translateX(0%);
+}
+.AddFriendDialogActions{
+    background-color: #000814;
+}
+.AddFriendDialog{
+    color: white;
+    background-color: #061a2b;
+}

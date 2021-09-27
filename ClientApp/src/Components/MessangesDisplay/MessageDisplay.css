@@ -1,0 +1,18 @@
+.MessangesDisplayContainer {
+    height: 100vh;
+    background-image: URL('../../Resources/Images/340618.png');
+    background-size: 100% 100%;
+}
+
+.ChatInfoHeader {
+    background-color: #000814 !important;
+    color: white !important;
+    flex-direction: row;
+    display: flex;
+    padding: 10px;
+}
+.ContainerForMessages{
+    max-height: 80vh;
+    min-height: 80vh;
+    overflow-y: scroll;
+}

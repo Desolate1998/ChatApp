@@ -9,7 +9,7 @@ namespace api.Controllers.UserActions.Interface
     interface IUserApi
     {
         public  Task<IActionResult> RegisterUser(EmailAndPasswordModel Data);
-        public Task<bool> Login(EmailAndPasswordModel Data);
+        public Task<int?> Login(EmailAndPasswordModel Data);
 
         public Task<string> DeleteAccount();
        

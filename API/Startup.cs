@@ -25,9 +25,10 @@ namespace api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
-        public IConfiguration Configuration { get; }
+         IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -44,7 +45,7 @@ namespace api
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .WithExposedHeaders("WWW-Authenticate")
-                        .WithOrigins("http://localhost:3000")
+                        .WithOrigins("http://10.0.0.7:3000", "http://localhost:3000")
                         .AllowCredentials();
                 });
             });
@@ -63,6 +64,7 @@ namespace api
             services.AddScoped<IFriendServices, FriendsServices>();
             services.AddScoped<IConnectionServices, ConnectionServices>();
             services.AddSignalR();
+
 
         }
 

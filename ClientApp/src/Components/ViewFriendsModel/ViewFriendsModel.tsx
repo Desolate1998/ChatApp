@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import './ViewFriends.css'
-import { IFriend } from './../../infrastructure/Models/Friend'
+
 import { FriendAPI } from '../../API/Agent'
 import {
   SessionHelper,
@@ -36,14 +36,7 @@ export const ViewFriendsModel: React.FC<IProps> = ({
 }) => {
   const [friends, setFriends] = useState<IActiveChat[]>([])
 
-  useEffect(() => {
-    FriendAPI.GetFriends(
-      SessionHelper.GetVerable(SessionVariabels.Email)!
-    ).then(response => {
-      setFriends([...response])
-      console.log(response)
-    })
-  }, [])
+  
 
   return (
     <Dialog open={open} fullWidth className='ViewFriendsContainer'>
