@@ -10,3 +10,4 @@ D:\Repos\Personal\ChatApp\Domain\obj\Debug\netcoreapp3.1\Domain.dll
 D:\Repos\Personal\ChatApp\Domain\obj\Debug\netcoreapp3.1\Domain.pdb
 D:\Repos\Personal\ChatApp\Domain\obj\Debug\netcoreapp3.1\Domain.genruntimeconfig.cache
 D:\Repos\Personal\ChatApp\Domain\obj\Debug\netcoreapp3.1\Domain.csproj.AssemblyReference.cache
+D:\Repos\Personal\ChatApp\Domain\obj\Debug\netcoreapp3.1\Domain.GeneratedMSBuildEditorConfig.editorconfig
